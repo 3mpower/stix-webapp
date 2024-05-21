@@ -6,7 +6,7 @@ import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/toaster"
 import { Analytics } from "@/components/analytics"
-import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeProvider } from "@/components/providers/theme-provider"
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -76,25 +76,19 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <head />
       <body
         className={cn(
-          "galaxy-pattern relative min-h-screen bg-background font-sans antialiased",
+          "relative min-h-screen overflow-x-hidden bg-background font-sans antialiased",
           fontSans.variable,
           fontHeading.variable
         )}
       >
-        {/* Lights */}
-        <div
-          className={cn(
-            "absolute z-10 h-full w-screen bg-gradient-to-bl from-transparent from-45% via-neutral-50 via-50% to-transparent to-55% opacity-5"
-          )}
-        />
-
-        {/* Content */}
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
-          <Analytics />
-          <Toaster />
-        </ThemeProvider>
+          {/* Content */}
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            {children}
+            <Analytics />
+            <Toaster />
+          </ThemeProvider>
       </body>
     </html>
   )
 }
+
