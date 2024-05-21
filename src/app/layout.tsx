@@ -82,7 +82,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         )}
       >
         {/* Content */}
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" forcedTheme="light" enableSystem>
           {children}
           <Analytics />
           <Toaster />
