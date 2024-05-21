@@ -81,14 +81,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
           fontHeading.variable
         )}
       >
-          {/* Content */}
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            {children}
-            <Analytics />
-            <Toaster />
-          </ThemeProvider>
+        {/* Content */}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
+          <Analytics />
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   )
 }
-

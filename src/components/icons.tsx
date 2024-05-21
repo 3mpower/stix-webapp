@@ -25,11 +25,13 @@ import {
   User,
   X,
   LucideIcon,
+  Share,
 } from "lucide-react"
 
 export type Icon = LucideIcon
 
 export const Icons = {
+  share: Share,
   logo: Command,
   close: X,
   spinner: Loader2,
