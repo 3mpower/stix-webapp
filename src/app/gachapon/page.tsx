@@ -89,7 +89,7 @@ const Page = () => {
             </AspectRatio>
           </div>
           {/* Purchase and Quantity */}
-          <div className="flex my-2 h-10 w-full">
+          <div className="my-2 flex h-10 w-full">
             <div className="flex items-center">
               <Button
                 variant="ghost"
