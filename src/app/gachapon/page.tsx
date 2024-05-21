@@ -62,13 +62,13 @@ const Page = () => {
                   alt={item.name}
                   width={50}
                   height={50}
-                  className="mx-auto"
+                  className="rounded-lg"
                 />
                 <div
-                  className={`absolute bottom-[-10px] left-[-5px] flex items-center justify-center rounded-full p-1`}
+                  className={`absolute -bottom-2 -left-2 flex h-4 w-4 items-center justify-center rounded-full text-xs`}
                   style={{ backgroundColor: getColor(item.rarity) }}
                 >
-                  <p className="text-[8px] font-bold">x5</p>
+                  <div className="text-[8px]">x5</div>
                 </div>
               </div>
             ))}
