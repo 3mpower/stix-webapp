@@ -6,7 +6,7 @@ import Image from "next/image"
 
 export default async function Page() {
   return (
-    <div>
+    <div className="bg-muted">
       <div className="flex justify-between px-3 py-4">
         <Icons.chevronLeft className="h-6 w-6" />
         <div className="flex gap-4">
@@ -21,12 +21,12 @@ export default async function Page() {
             height={132}
             width={128}
             alt="Item 1"
-            className="mx-auto"
+            className="mx-auto rounded-xl"
           />
           <Badge variant="outline" className="text-muted-foreground">
             USGMEN
           </Badge>
-          <div className="text-lg font-bold">Training frog move Sticker</div>
+          <div className="text-xl font-bold">Training frog move Sticker</div>
           <div className="flex items-center gap-3">
             <div className="flex text-xs font-semibold">
               <Icons.coins className="mr-1.5 h-3 w-3" />
@@ -37,20 +37,24 @@ export default async function Page() {
             <RarityBage rarity="legendary" />
           </div>
         </div>
-        <div className="flex w-full items-center gap-1.5 px-3">
-          <div>
-            <Button size="icon" variant="outline" className="h-8 w-8">
-              <Icons.star className="h-5 w-5 text-neutral-400" />
-            </Button>
-          </div>
-          <Button className="w-full">Purchase</Button>
+        <div className="flex h-10 w-full grid-cols-3 items-center gap-1 px-3">
+          <Button
+            size="icon"
+            variant="outline"
+            className="w-[full] flex-1  border border-primary bg-button-secondary shadow-[2px_4px_0px_0px_#1a202c]"
+          >
+            <Icons.star className="h-4 w-[95px] border-none fill-gray-300 dark:fill-muted-foreground text-muted-foreground" />
+          </Button>
+          <Button className="flex-3 w-full border border-primary text-white font-bold bg-button shadow-[3px_4px_0px_0px_#1a202c]">
+            Purchase
+          </Button>
         </div>
       </div>
-      <div className="p-3">
-        <div className="text-xs text-muted-foreground">
+      <div className="mt-5 min-h-[40rem] rounded-t-3xl border bg-white p-3 px-4 pt-5">
+        <div className="text-[10px] text-muted-foreground">
           Stickers included in the set
         </div>
-        <div className="mt-8 grid grid-cols-4 gap-3">
+        <div className="mt-2 grid grid-cols-4 gap-3">
           {Array.from({ length: 8 }).map((_, index) => (
             <div key={index}>
               <Image
@@ -81,7 +85,7 @@ const RarityBage = ({
   return (
     <Badge
       className={cn(
-        "px-1 py-[1px] text-[10px] font-bold uppercase",
+        "border border-primary px-1 py-[1px] text-[10px] font-bold uppercase shadow-[1px_2px_0px_0px_#1a202c]",
         color[rarity]
       )}
     >

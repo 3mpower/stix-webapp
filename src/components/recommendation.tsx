@@ -36,7 +36,7 @@ const Recommendation = () => {
               height={300}
               width={200}
               alt={item.name}
-              className="mx-auto"
+              className="mx-auto rounded-lg"
             />
             <p className="mt-2 text-sm">{item.name}</p>
           </div>

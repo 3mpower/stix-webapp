@@ -26,6 +26,11 @@ module.exports = {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
+        button: {
+          DEFAULT: "#818CF8",
+          foreground: "hsl(var(--primary-foreground))",
+          secondary: "#475569",
+        },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
@@ -36,6 +41,7 @@ module.exports = {
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
+          primary: "#E0E7FF",
           foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
@@ -44,6 +50,7 @@ module.exports = {
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
+          secondary: "#818CF8",
           foreground: "hsl(var(--popover-foreground))",
         },
         card: {

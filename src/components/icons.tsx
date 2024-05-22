@@ -8,6 +8,7 @@ import {
   CreditCard,
   File,
   FileText,
+  Gift,
   HelpCircle,
   Image,
   Laptop,
@@ -27,6 +28,8 @@ import {
   LucideIcon,
   Share,
   Coins,
+  Dices,
+  Home,
   Star,
 } from "lucide-react"
 
@@ -37,7 +40,9 @@ export const Icons = {
   coins: Coins,
   share: Share,
   logo: Command,
+  dice: Dices,
   close: X,
+  home: Home,
   spinner: Loader2,
   chevronLeft: ChevronLeft,
   chevronRight: ChevronRight,
@@ -57,6 +62,7 @@ export const Icons = {
   sun: SunMedium,
   moon: Moon,
   laptop: Laptop,
+  pack: Gift,
   shop: ShoppingBag,
   gitHub: ({ ...props }: LucideProps) => (
     <svg
