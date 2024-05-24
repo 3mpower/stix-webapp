@@ -32,9 +32,9 @@ export default async function Page() {
               <Icons.coins className="mr-1.5 h-3 w-3" />
               100 ($1)
             </div>
-            <RarityBage rarity="common" />
-            <RarityBage rarity="rare" />
-            <RarityBage rarity="legendary" />
+            <RarityBadge rarity="common" />
+            <RarityBadge rarity="rare" />
+            <RarityBadge rarity="legendary" />
           </div>
         </div>
         <div className="flex h-10 w-full grid-cols-3 items-center gap-1 px-3">
@@ -43,9 +43,9 @@ export default async function Page() {
             variant="outline"
             className="w-[full] flex-1  border border-primary bg-button-secondary shadow-[2px_4px_0px_0px_#1a202c]"
           >
-            <Icons.star className="h-4 w-[95px] border-none fill-gray-300 dark:fill-muted-foreground text-muted-foreground" />
+            <Icons.star className="h-4 w-[95px] border-none fill-gray-300 text-muted-foreground dark:fill-muted-foreground" />
           </Button>
-          <Button className="flex-3 w-full border border-primary text-white font-bold bg-button shadow-[3px_4px_0px_0px_#1a202c]">
+          <Button className="flex-3 w-full border border-primary bg-button font-bold text-white shadow-[3px_4px_0px_0px_#1a202c]">
             Purchase
           </Button>
         </div>
@@ -72,7 +72,7 @@ export default async function Page() {
   )
 }
 
-const RarityBage = ({
+const RarityBadge = ({
   rarity,
 }: {
   rarity: "common" | "rare" | "legendary"
