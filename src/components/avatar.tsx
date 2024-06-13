@@ -2,9 +2,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 const UserAvatar = () => {
   return (
-    <Avatar className="border-2 border-white">
+    <Avatar className="h-7 w-7 border-2 border-white">
       <AvatarImage src="https://github.com/shadcn.png" />
-      {/* <AvatarFallback>Profile</AvatarFallback> */}
+      <AvatarFallback>Profile</AvatarFallback>
     </Avatar>
   )
 }

@@ -1,7 +1,11 @@
-import React, { useState } from "react"
+"use client"
+
+import React, { useEffect, useState } from "react"
 import { Button } from "./ui/button"
+import { useRouter } from "next/navigation"
 
 const PurchaseWithQuantity = () => {
+  const router = useRouter()
   const [quantity, setQuantity] = useState(1)
 
   const increment = () => {
@@ -14,13 +18,22 @@ const PurchaseWithQuantity = () => {
     }
   }
 
+  const handlePurchase = () => {
+    router.push("/gachapon/reveal")
+  }
+
+  useEffect(() => {
+    router.prefetch("/gachapon/reveal")
+  }, [])
+
   return (
     <div className="my-2 flex h-10 w-full gap-4">
       <div className="flex items-center">
         <Button
-          variant="ghost"
           onClick={() => decrement()}
-          className="flex h-8 w-8 items-center justify-center rounded-full  border border-primary bg-button-secondary text-primary-foreground shadow-[1px_2px_0px_0px_#1a202c] dark:text-accent-foreground dark:shadow-[1px_2px_0px_0px_#fff]"
+          variant="secondary"
+          size="icon-round"
+          className="text-neutral-200"
         >
           -
         </Button>
@@ -29,13 +42,17 @@ const PurchaseWithQuantity = () => {
         </div>
         <Button
           onClick={() => increment()}
-          variant="ghost"
-          className="flex h-8 w-8 items-center justify-center rounded-full border border-primary bg-button-secondary text-primary-foreground shadow-[1px_2px_0px_0px_#1a202c] dark:text-accent-foreground dark:shadow-[1px_2px_0px_0px_#fff]"
+          variant="secondary"
+          size="icon-round"
+          className="text-neutral-200"
         >
           +
         </Button>
       </div>
-      <Button className="flex flex-1 justify-between border border-primary bg-button px-3 font-bold uppercase text-button-foreground shadow-[3px_4px_0px_0px_#1a202c] dark:text-foreground ">
+      <Button
+        className="flex flex-1 justify-between uppercase"
+        onClick={handlePurchase}
+      >
         <div>Purchase</div>
         <div>$100</div>
       </Button>

@@ -1,19 +1,16 @@
 import { Icons } from "@/components/icons"
+import TopNav from "@/components/top-nav"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
+import Link from "next/link"
 
 export default async function Page() {
+  const sticker = "item-1"
   return (
-    <div className="bg-muted">
-      <div className="flex justify-between px-3 py-4">
-        <Icons.chevronLeft className="h-6 w-6" />
-        <div className="flex gap-4">
-          <Icons.share className="h-6 w-6" />
-          <Icons.close className="h-6 w-6" />
-        </div>
-      </div>
+    <div className="flex min-h-screen flex-col bg-muted">
+      <TopNav />
       <div className="flex flex-col items-center justify-center gap-6 text-center">
         <div className="flex flex-col items-center gap-3">
           <Image
@@ -38,17 +35,18 @@ export default async function Page() {
           </div>
         </div>
         <div className="flex h-10 w-full grid-cols-3 items-center gap-1 px-3">
-          <Button
-            size="icon"
-            variant="secondary"
-            className="un de flex-1  border border-primary bg-button-secondary shadow-[2px_4px_0px_0px_#1a202c]"
-          >
-            <Icons.star className="h-4 w-[95px] border-none fill-gray-300 text-muted-foreground dark:fill-muted-foreground" />
+          <Button size="icon" variant="secondary">
+            <Icons.star className="h-4 w-[95px] border-none fill-gray-300 text-transparent" />
           </Button>
-          <Button className="w-full">Purchase</Button>
+          <Button className="w-full" asChild>
+            <Link href={`/gachapon/${sticker}`}>GET THIS STICKER</Link>
+          </Button>
         </div>
       </div>
-      <div className="mt-5 min-h-[40rem] rounded-t-3xl border bg-white p-3 px-4 pt-5">
+      <div
+        id="preview"
+        className="fle mt-5 grow rounded-t-3xl border bg-card p-3 px-4 pt-5"
+      >
         <div className="text-[10px] text-muted-foreground">
           Stickers included in the set
         </div>
@@ -83,7 +81,7 @@ const RarityBadge = ({
   return (
     <Badge
       className={cn(
-        "border border-primary px-1 py-[1px] text-[10px] font-bold uppercase shadow-[1px_2px_0px_0px_#1a202c]",
+        "border border-black px-1 py-[1px] text-[10px] font-bold uppercase shadow-[1px_2px_0px_0px_#000]",
         color[rarity]
       )}
     >

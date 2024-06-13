@@ -16,8 +16,8 @@ const Inventory = ({ items }: { items: any[] }) => {
   }
 
   return (
-    <div className="px-4">
-      <p className="mb-2 text-xs font-bold">Inventory</p>
+    <div>
+      <p className="mb-2 text-xs font-bold">My Inventory</p>
       <div className="flex gap-x-[12px]">
         {items.map((item, index) => (
           <div

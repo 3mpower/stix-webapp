@@ -6,22 +6,27 @@ const tabItem = [
   {
     id: 1,
     name: "Home",
+    disabled: false,
   },
   {
     id: 2,
     name: "Premium",
+    disabled: true,
   },
   {
     id: 3,
     name: "Rank",
+    disabled: true,
   },
   {
     id: 4,
     name: "New",
+    disabled: true,
   },
   {
     id: 5,
     name: "Free",
+    disabled: true,
   },
 ]
 
@@ -35,6 +40,7 @@ const NavigationTab = () => {
               className="w-full"
               key={index}
               value={item.name.toLowerCase()}
+              disabled={item.disabled}
             >
               {item.name}
             </TabsTrigger>

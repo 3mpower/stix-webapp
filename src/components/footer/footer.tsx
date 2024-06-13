@@ -11,21 +11,22 @@ const Footer = () => {
         href="/"
       >
         <Icons.home className="h-6 w-6 fill-muted dark:fill-none" />
-        <p className="text-[9px]">Home</p>
+        <div className="text-[9px] text-muted">Home</div>
       </Link>
       <Link
         className="flex flex-col items-center justify-center text-primary"
         href="/gachapon"
       >
         <Icons.shop className="h-6 w-6 fill-muted dark:fill-none" />
-        <p className="text-[9px]">Store</p>
+        <div className="text-[9px] text-muted">Store</div>
       </Link>
       <div className="flex flex-col items-center justify-center text-primary">
         <Icons.pack className="h-7 w-7 fill-muted dark:fill-none" />
-        <p className="text-[9px]">Buy Pack</p>
+        <div className="text-pria text-[9px] text-muted">Buy Pack</div>
       </div>
-      <div className="flex flex-col items-center justify-center text-primary">
+      <div className="flex flex-col items-center justify-center gap-1 text-primary">
         <UserAvatar />
+        <div className="text-pria text-[9px] text-muted">Profile</div>
       </div>
     </div>
   )

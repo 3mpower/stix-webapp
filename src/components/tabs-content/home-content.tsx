@@ -10,10 +10,8 @@ const HomeContent = () => {
       {/* <AdsBanner /> */}
       <StackedGachapon />
       <div className="rounded-t-3xl py-2 text-accent-foreground dark:bg-accent">
-      <Recommendation />
-      <Popular />
+        <Recommendation />
       </div>
-
     </div>
   )
 }
