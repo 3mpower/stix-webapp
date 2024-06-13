@@ -28,7 +28,7 @@ const Leaderboard = () => {
             key={index}
             className={`flex h-[60px] items-center justify-between px-7 dark:border-t dark:border-primary`}
           >
-            <p className="text-sm font-bold">{user.rank}</p>
+            <p className="text-sm font-bold text-gray-400">{user.rank}</p>
             <div className="flex items-center gap-2">
               <div className="flex h-10 w-10 items-center justify-center rounded-md border border-gray-300 bg-muted-primary">
                 <Icons.user className="h-4 w-4 text-muted-foreground" />
