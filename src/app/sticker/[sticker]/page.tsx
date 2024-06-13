@@ -40,14 +40,12 @@ export default async function Page() {
         <div className="flex h-10 w-full grid-cols-3 items-center gap-1 px-3">
           <Button
             size="icon"
-            variant="outline"
-            className="w-[full] flex-1  border border-primary bg-button-secondary shadow-[2px_4px_0px_0px_#1a202c]"
+            variant="secondary"
+            className="un de flex-1  border border-primary bg-button-secondary shadow-[2px_4px_0px_0px_#1a202c]"
           >
             <Icons.star className="h-4 w-[95px] border-none fill-gray-300 text-muted-foreground dark:fill-muted-foreground" />
           </Button>
-          <Button className="flex-3 w-full border border-primary bg-button font-bold text-white shadow-[3px_4px_0px_0px_#1a202c]">
-            Purchase
-          </Button>
+          <Button className="w-full">Purchase</Button>
         </div>
       </div>
       <div className="mt-5 min-h-[40rem] rounded-t-3xl border bg-white p-3 px-4 pt-5">
