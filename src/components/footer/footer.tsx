@@ -13,13 +13,13 @@ const Footer = () => {
         <Icons.home className="h-6 w-6 fill-muted dark:fill-none" />
         <div className="text-[9px] text-muted">Home</div>
       </Link>
-      {/* <Link
+      <Link
         className="flex flex-col items-center justify-center text-primary"
         href="/"
       >
         <Icons.shop className="h-6 w-6 fill-muted dark:fill-none" />
         <div className="text-[9px] text-muted">Store</div>
-      </Link> */}
+      </Link>
       {/* <div className="flex flex-col items-center justify-center text-primary">
         <Icons.pack className="h-7 w-7 fill-muted dark:fill-none" />
         <div className="text-pria text-[9px] text-muted">Buy Pack</div>
