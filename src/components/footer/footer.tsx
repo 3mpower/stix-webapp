@@ -15,15 +15,15 @@ const Footer = () => {
       </Link>
       <Link
         className="flex flex-col items-center justify-center text-primary"
-        href="/gachapon"
+        href="/"
       >
         <Icons.shop className="h-6 w-6 fill-muted dark:fill-none" />
         <div className="text-[9px] text-muted">Store</div>
       </Link>
-      <div className="flex flex-col items-center justify-center text-primary">
+      {/* <div className="flex flex-col items-center justify-center text-primary">
         <Icons.pack className="h-7 w-7 fill-muted dark:fill-none" />
         <div className="text-pria text-[9px] text-muted">Buy Pack</div>
-      </div>
+      </div> */}
       <div className="flex flex-col items-center justify-center gap-1 text-primary">
         <UserAvatar />
         <div className="text-pria text-[9px] text-muted">Profile</div>
