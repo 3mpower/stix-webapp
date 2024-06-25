@@ -1,6 +1,9 @@
-import React from "react"
+"use client"
+
+import React, { useEffect } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import HomeContent from "./tabs-content/home-content"
+import { usePrivy } from "@privy-io/react-auth"
 
 const tabItem = [
   {
@@ -31,6 +34,14 @@ const tabItem = [
 ]
 
 const NavigationTab = () => {
+  const { login, isModalOpen, authenticated, ready } = usePrivy()
+
+  useEffect(() => {
+    if (!authenticated) {
+      login()
+    }
+  }, [isModalOpen])
+
   return (
     <Tabs defaultValue="home">
       <div className="px-4">
