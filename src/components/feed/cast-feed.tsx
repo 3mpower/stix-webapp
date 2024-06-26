@@ -10,6 +10,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 
 import { Cast } from "./cast"
 import { Separator } from "@/components/ui/separator"
+import Link from "next/link"
 // const client = new NeynarAPIClient(process.env.NEYNAR_API_KEY)
 
 export interface CastFeedProps {

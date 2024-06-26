@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import StickerSlider from "../sticker-slider"
 interface CastProps {
   text: string
   timestamp: string
@@ -35,7 +36,7 @@ export function Cast({ text, timestamp, author, reactions }: CastProps) {
           <p>{reactions.likes_count} Likes</p>
           <p>{reactions.recasts_count} Recasts</p>
           <p>{reactions.replies_count} Replies</p>
-          <Button className="bg-indigo-400"> + </Button>
+          <StickerSlider />
         </div>
       </div>
     </div>
