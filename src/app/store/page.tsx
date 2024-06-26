@@ -1,21 +1,21 @@
-"use client"
-import Header from "@/components/header"
-import NavigationTab from "@/components/nav-tab"
-import { Separator } from "@/components/ui/separator"
 import { CastFeed } from "@/components/feed/cast-feed"
-// import { mockFeed } from "@/mocks/feed"
-import mockFeed from "@/mocks/feed.json"
-
+import Header from "@/components/header"
+import { Separator } from "@/components/ui/separator"
 import React from "react"
+import mockFeed from "@/mocks/feed.json"
+import NavigationTab from "@/components/nav-tab"
 
-export default async function IndexPage() {
+const Feed = () => {
   return (
     <div className="relative min-h-screen pb-24 text-black">
       <Header />
-      <Separator />
+      {/* <Separator /> */}
       {/* export function CastFeed({ feed }: CastFeedProps) { */}
       {/* @ts-ignore */}
-      <CastFeed feed={mockFeed} />
+      {/* <CastFeed feed={mockFeed} /> */}
+      <NavigationTab />
     </div>
   )
 }
+
+export default Feed
