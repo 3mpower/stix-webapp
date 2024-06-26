@@ -14,7 +14,7 @@ const FeedIndv = () => {
     <>
       <div className="h-auto">
         <TopNav />
-        <div className="flex flex-col  bg-white p-4 shadow-md">
+        <div className="container flex flex-col  bg-white">
           <div className="flex items-center  space-x-2">
             <img
               src={specificFeed?.author.pfp_url ?? ""}
@@ -29,10 +29,14 @@ const FeedIndv = () => {
           </div>
           <p className="mt-4">{specificFeed?.text ?? ""}</p>
           <div className="mt-4 flex justify-between">
-            <div className="flex items-end space-x-4">
-              <p>{specificFeed?.reactions.likes_count} Likes</p>
-              <p>{specificFeed?.reactions.recasts_count} Recasts</p>
-              <p>{specificFeed?.replies.count} Replies</p>
+            <div className="flex items-center space-x-4">
+              <p className="text-sm">
+                {specificFeed?.reactions.likes_count} Likes
+              </p>
+              <p className="text-sm">
+                {specificFeed?.reactions.recasts_count} Recasts
+              </p>
+              <p className="text-sm">{specificFeed?.replies.count} Replies</p>
               <StickerSlider />
             </div>
           </div>
