@@ -30,8 +30,6 @@ const tabItem = [
   },
 ]
 
-import { Button } from "@/components/ui/button"
-
 const NavigationTab = () => {
   return (
     <Tabs defaultValue="home">

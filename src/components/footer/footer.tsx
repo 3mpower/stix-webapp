@@ -15,7 +15,7 @@ const Footer = () => {
       </Link>
       <Link
         className="flex flex-col items-center justify-center text-primary"
-        href="/"
+        href="/store"
       >
         <Icons.shop className="h-6 w-6 fill-muted dark:fill-none" />
         <div className="text-[9px] text-muted">Store</div>
