@@ -21,9 +21,10 @@ export function CastFeed({ feed }: CastFeedProps) {
   return (
     <ScrollArea>
       {feed.casts.map((cast) => (
-        <div>
+        <div key={cast.hash}>
           <Cast
             key={cast.hash}
+            hash={cast.hash}
             text={cast.text}
             timestamp={cast.timestamp}
             author={{

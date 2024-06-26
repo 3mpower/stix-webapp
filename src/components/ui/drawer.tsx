@@ -113,6 +113,5 @@ export {
   DrawerContent,
   DrawerHeader,
   DrawerFooter,
-  DrawerTitle,
   DrawerDescription,
 }

@@ -33,12 +33,9 @@ const FeedIndv = () => {
               <p>{specificFeed?.reactions.likes_count} Likes</p>
               <p>{specificFeed?.reactions.recasts_count} Recasts</p>
               <p>{specificFeed?.replies.count} Replies</p>
-              <Button className="bg-indigo-400"> + </Button>
+              <StickerSlider />
             </div>
           </div>
-        </div>
-        <div className="container mt-5">
-          <StickerSlider />
         </div>
       </div>
     </>
