@@ -4,10 +4,15 @@ import { Separator } from "@/components/ui/separator"
 import { CastFeed } from "@/components/feed/cast-feed"
 import mockFeed from "@/mocks/feed.json"
 
-import React from "react"
+import React, { use } from "react"
 import Footer from "@/components/footer/footer"
+import { neynarClient } from "@/lib/neynarClient"
+import { FeedType, FilterType } from "@neynar/nodejs-sdk"
 
 export default async function HomePage() {
+  // const feed = await neynarClient.fetchFeed(FeedType.Filter, {
+  //   filterType: FilterType.GlobalTrending,
+  // })
   return (
     <div className="relative min-h-screen pb-24 text-black">
       <Header />

@@ -56,7 +56,7 @@ export function Cast({ text, timestamp, author, reactions, hash }: CastProps) {
             <p>{reactions.replies_count} Replies</p>
           </Link>
         </div>
-        <StickerSlider />
+        {/* <StickerSlider /> */}
       </div>
     </div>
   )
