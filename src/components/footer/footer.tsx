@@ -5,7 +5,7 @@ import Link from "next/link"
 
 const Footer = () => {
   return (
-    <div className="fixed bottom-0 left-0 flex h-[4.375rem] w-full items-center justify-between rounded-t-3xl border  border-primary bg-popover-secondary px-10">
+    <div className="fixed bottom-0 left-0 flex h-[3.5rem] w-full items-center justify-between border  border-primary bg-popover-secondary px-10">
       <Link
         className="flex flex-col items-center justify-center text-primary"
         href="/"
@@ -15,7 +15,7 @@ const Footer = () => {
       </Link>
       <Link
         className="flex flex-col items-center justify-center text-primary"
-        href="/"
+        href="/store"
       >
         <Icons.shop className="h-6 w-6 fill-muted dark:fill-none" />
         <div className="text-[9px] text-muted">Store</div>

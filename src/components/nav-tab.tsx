@@ -58,9 +58,7 @@ const NavigationTab = () => {
           ))}
         </TabsList>
       </div>
-      <TabsContent value="home">
-        <HomeContent />
-      </TabsContent>
+      <TabsContent value="home">{<HomeContent />}</TabsContent>
     </Tabs>
   )
 }

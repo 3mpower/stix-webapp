@@ -31,6 +31,7 @@ import {
   Dices,
   Home,
   Star,
+  Smile,
 } from "lucide-react"
 
 export type Icon = LucideIcon
@@ -41,6 +42,7 @@ export const Icons = {
   share: Share,
   logo: Command,
   dice: Dices,
+  smile: Smile,
   close: X,
   home: Home,
   spinner: Loader2,
