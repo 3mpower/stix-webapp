@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server"
 import { authMiddleware } from "./auth-middleware"
 
-export const publicPages = ["/store"]
+export const publicPages = ["/"]
 
 export default function middleware(req: NextRequest) {
   if (!publicPages.includes(req.nextUrl.pathname)) {

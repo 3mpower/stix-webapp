@@ -25,7 +25,7 @@ export async function authMiddleware(req: NextRequest) {
     console.log("===hello")
     // If user is not authenticated, but is maybe authenticated
     // redirect them to the `/refresh` page to trigger client-side refresh flow
-    return NextResponse.redirect(new URL("/store", req.url))
+    return NextResponse.redirect(new URL("/", req.url))
   }
 
   return NextResponse.next()
