@@ -7,11 +7,14 @@ import mockFeed from "@/mocks/feed.json"
 import Image from "next/image"
 import { useParams } from "next/navigation"
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar"
+import moment from "moment"
 
 const FeedIndv = () => {
   const { feed } = useParams<{ feed: string }>()
 
   const specificFeed = mockFeed.casts.find((item) => item.hash === feed)
+  var formattedDate = moment(specificFeed?.timestamp).format("MMMM DD, HH:mm")
+
   return (
     <>
       <div className="h-auto">
@@ -28,10 +31,12 @@ const FeedIndv = () => {
                 {specificFeed?.author.display_name}
               </AvatarFallback>
             </Avatar>
-            <div className="flex flex-row items-end gap-2">
-              <p className="font-bold">{specificFeed?.author.display_name}</p>
-              <p className="text-sm text-gray-500">{`@${specificFeed?.author.username}`}</p>
-              <p className="text-sm text-gray-500">{specificFeed?.timestamp}</p>
+            <div className="flex w-full flex-row items-center justify-between gap-2">
+              <div>
+                <p className="font-bold">{specificFeed?.author.display_name}</p>
+                <p className="text-sm text-gray-500">{`@${specificFeed?.author.username}`}</p>
+              </div>
+              <p className="text-sm text-gray-500">{formattedDate}</p>
             </div>
           </div>
           <p className="mt-4 break-words text-sm md:text-base">

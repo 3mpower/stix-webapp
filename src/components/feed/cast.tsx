@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import StickerSlider from "../sticker-slider"
 import Link from "next/link"
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
+import moment from "moment"
 interface CastProps {
   text: string
   timestamp: string
@@ -19,6 +20,7 @@ interface CastProps {
   hash: string
 }
 export function Cast({ text, timestamp, author, reactions, hash }: CastProps) {
+  var formattedDate = moment(timestamp).format("MMMM DD, HH:mm")
   return (
     <div className="container flex flex-col bg-white p-4 pt-1 shadow-md">
       <Link href={`/${hash}`}>
@@ -31,10 +33,13 @@ export function Cast({ text, timestamp, author, reactions, hash }: CastProps) {
             />
             <AvatarFallback>{author.displayName}</AvatarFallback>
           </Avatar>
-          <div className="flex flex-row items-end gap-2">
-            <p className="font-bold">{author.displayName}</p>
-            <p className="text-sm text-gray-500">{`@${author.username}`}</p>
-            <p className="text-sm text-gray-500">{timestamp}</p>
+          <div className="flex w-full flex-row items-center justify-between">
+            <div className="flex flex-col items-start">
+              <p className="font-bold">{author.displayName}</p>
+              <p className="text-sm text-gray-500">{`@${author.username}`}</p>
+            </div>
+
+            <p className="text-sm text-gray-500">{formattedDate}</p>
           </div>
         </div>
         <p className="mt-4 break-words text-sm md:text-base">{text}</p>
