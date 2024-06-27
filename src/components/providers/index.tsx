@@ -1,6 +1,6 @@
 "use client"
 
-import PrivyProviders from "./privy-providers"
+import PrivyProviders from "./privy-provider"
 
 const buildProvidersTree = (componentsWithProps: any[]) => {
   const initialComponent = ({ children }: { children: React.ReactNode }) => (
