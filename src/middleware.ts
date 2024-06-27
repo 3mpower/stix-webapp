@@ -5,7 +5,6 @@ export const publicPages = ["/"]
 
 export default function middleware(req: NextRequest) {
   if (!publicPages.includes(req.nextUrl.pathname)) {
-    console.log("===publicPages, pathname:", req.nextUrl.pathname)
     // If it's not, execute authMiddleware
     return authMiddleware(req)
   }
