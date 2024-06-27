@@ -39,7 +39,7 @@ export function Cast({ text, timestamp, author, reactions, hash }: CastProps) {
         </div>
         <p className="mt-4 break-words text-sm md:text-base">{text}</p>
       </Link>
-      <div className="mt-2 flex justify-between text-sm">
+      <div className="mt-2 flex items-center justify-between text-sm">
         <div className="flex items-end space-x-4">
           <Link href={`/${hash}`}>
             <p>{reactions.likes_count} Likes</p>
@@ -50,8 +50,8 @@ export function Cast({ text, timestamp, author, reactions, hash }: CastProps) {
           <Link className="flex items-end space-x-4" href={`/${hash}`}>
             <p>{reactions.replies_count} Replies</p>
           </Link>
-          <StickerSlider />
         </div>
+        <StickerSlider />
       </div>
     </div>
   )

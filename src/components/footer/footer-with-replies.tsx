@@ -12,7 +12,7 @@ const CommentFooter = () => {
         <div className="flex w-full items-center justify-between rounded-full bg-white">
           <Input
             placeholder="Reply to @ownerOfThisComment"
-            className="w-full border-none"
+            className="w-full rounded-l-full border-none pl-5"
           />
           <StickerSlider emoji />
         </div>

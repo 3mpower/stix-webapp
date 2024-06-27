@@ -37,7 +37,7 @@ const FeedIndv = () => {
           <p className="mt-4 break-words text-sm md:text-base">
             {specificFeed?.text ?? ""}
           </p>
-          <div className="mt-2 flex justify-between">
+          <div className="mt-2 flex items-center justify-between">
             <div className="flex items-end space-x-4">
               <p className="text-sm">
                 {specificFeed?.reactions.likes_count} Likes
@@ -46,8 +46,8 @@ const FeedIndv = () => {
                 {specificFeed?.reactions.recasts_count} Recasts
               </p>
               <p className="text-sm">{specificFeed?.replies.count} Replies</p>
-              <StickerSlider />
             </div>
+            <StickerSlider />
           </div>
         </div>
       </div>

@@ -24,7 +24,10 @@ const StickerSlider: React.FC<StickerSliderProps> = ({ emoji }) => {
         {emoji ? (
           <Icons.smile className="mr-5 text-gray-400 hover:text-black" />
         ) : (
-          <Button className="bg-indigo-400"> + </Button>
+          <Button className="bg-indigo-400" size="icon-round">
+            {" "}
+            +{" "}
+          </Button>
         )}
       </DrawerTrigger>
       <DrawerContent>
