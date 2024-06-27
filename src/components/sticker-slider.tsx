@@ -12,12 +12,20 @@ import {
 import { Button } from "./ui/button"
 import HorizontalSlider from "./sticker-slider/horizontal-header"
 import VerticalSticker from "./sticker-slider/vertical-sticker"
+import { Icons } from "./icons"
+interface StickerSliderProps {
+  emoji?: boolean
+}
 
-const StickerSlider = () => {
+const StickerSlider: React.FC<StickerSliderProps> = ({ emoji }) => {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button className="bg-indigo-400"> + </Button>
+        {emoji ? (
+          <Icons.smile className="mr-5 text-gray-400 hover:text-black" />
+        ) : (
+          <Button className="bg-indigo-400"> + </Button>
+        )}
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>

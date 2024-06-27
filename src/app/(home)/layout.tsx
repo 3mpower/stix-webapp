@@ -1,3 +1,5 @@
+import Footer from "@/components/footer/footer"
+
 interface HomeLayoutProps {
   children: React.ReactNode
 }

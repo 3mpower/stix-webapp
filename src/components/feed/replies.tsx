@@ -1,6 +1,7 @@
 import Image from "next/image"
 import React from "react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Separator } from "../ui/separator"
 
 type CommentProps = {
   username: string
@@ -12,76 +13,80 @@ type CommentProps = {
 
 const replies: CommentProps[] = [
   {
-    username: "User1",
+    username: "Alice",
     userImage: "/images/sticker.png",
-    comment: "This is a text comment from User1.",
+    comment: "This is a text comment from Alice.",
     type: "text",
   },
   {
-    username: "User2",
+    username: "Bob",
     userImage: "/images/sticker.png",
     comment: "",
     type: "sticker",
     stickerImage: "/images/sticker/mock.png",
   },
   {
-    username: "User3",
+    username: "Charlie",
     userImage: "/images/sticker.png",
-    comment: "This is another text comment from User3.",
+    comment: "This is another text comment from Charlie.",
     type: "text",
   },
   {
-    username: "User4",
+    username: "Diana",
     userImage: "/images/sticker.png",
     comment: "",
     type: "sticker",
     stickerImage: "/images/sticker/mock.png",
   },
   {
-    username: "User5",
+    username: "Eve",
     userImage: "/images/sticker.png",
-    comment: "This is a text comment from User5.",
+    comment: "This is a text comment from Eve.",
     type: "text",
   },
   {
-    username: "User6",
+    username: "Frank",
     userImage: "/images/sticker.png",
-    comment: "This is a text comment from User6.",
+    comment: "This is a text comment from Frank.",
     type: "text",
   },
   {
-    username: "User7",
+    username: "Grace",
     userImage: "/images/sticker.png",
     comment: "",
     type: "sticker",
     stickerImage: "/images/sticker/mock.png",
   },
 ]
-
 const Replies = () => {
   return (
-    <div className="container ">
-      <div className="py-5">
+    <div className="container p-4 pt-0">
+      <div className="pt-0">
         {replies.map((reply, index) => (
-          <div key={index} className="flex items-center space-x-3 space-y-3">
-            <Avatar>
-              <AvatarImage src={reply.userImage} alt={reply.username} />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-            <div>
-              <h1 className="font-bold">{reply.username}</h1>
-              {reply.type === "text" ? (
-                <p>{reply.comment}</p>
-              ) : (
-                <Image
-                  src={reply.stickerImage!}
-                  alt="Sticker"
-                  width={100}
-                  height={100}
-                />
-              )}
+          <>
+            <Separator />
+            <div key={index} className="my-3 flex items-start">
+              <Avatar className="h-9 w-9">
+                <AvatarImage src={reply.userImage} alt={reply.username} />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+              <div className="px-2">
+                <h1 className="flex h-9 w-9 items-center font-bold">
+                  {reply.username}
+                </h1>
+                {reply.type === "text" ? (
+                  <p>{reply.comment}</p>
+                ) : (
+                  <Image
+                    src={reply.stickerImage!}
+                    alt="Sticker"
+                    width={100}
+                    height={100}
+                  />
+                )}
+              </div>
             </div>
-          </div>
+          </>
         ))}
       </div>
     </div>

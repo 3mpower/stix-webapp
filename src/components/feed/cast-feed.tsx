@@ -19,7 +19,7 @@ export interface CastFeedProps {
 
 export function CastFeed({ feed }: CastFeedProps) {
   return (
-    <ScrollArea>
+    <>
       {feed.casts.map((cast) => (
         <div key={cast.hash}>
           <Cast
@@ -42,6 +42,6 @@ export function CastFeed({ feed }: CastFeedProps) {
           <Separator />
         </div>
       ))}
-    </ScrollArea>
+    </>
   )
 }

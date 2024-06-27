@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import StickerSlider from "../sticker-slider"
 import Link from "next/link"
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 interface CastProps {
   text: string
   timestamp: string
@@ -19,23 +20,26 @@ interface CastProps {
 }
 export function Cast({ text, timestamp, author, reactions, hash }: CastProps) {
   return (
-    <div className="flex flex-col  bg-white p-4 shadow-md">
+    <div className="container flex flex-col bg-white p-4 pt-1 shadow-md">
       <Link href={`/${hash}`}>
         <div className="flex cursor-pointer items-center space-x-2">
-          <img
-            src={author.pfpUrl}
-            alt={`${author.username}'s profile`}
-            className="h-8 w-8 rounded-full"
-          />
+          <Avatar className="h-7 w-7">
+            <AvatarImage
+              className="object-fit"
+              src={author.pfpUrl}
+              alt={`${author.username}'s profile`}
+            />
+            <AvatarFallback>{author.displayName}</AvatarFallback>
+          </Avatar>
           <div className="flex flex-row items-end gap-2">
             <p className="font-bold">{author.displayName}</p>
             <p className="text-sm text-gray-500">{`@${author.username}`}</p>
             <p className="text-sm text-gray-500">{timestamp}</p>
           </div>
         </div>
-        <p className="mt-4">{text}</p>
+        <p className="mt-4 break-words text-sm md:text-base">{text}</p>
       </Link>
-      <div className="mt-4 flex justify-between">
+      <div className="mt-2 flex justify-between text-sm">
         <div className="flex items-end space-x-4">
           <Link href={`/${hash}`}>
             <p>{reactions.likes_count} Likes</p>
