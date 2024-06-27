@@ -10,6 +10,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 
 import { Cast } from "./cast"
 import { Separator } from "@/components/ui/separator"
+import Link from "next/link"
 // const client = new NeynarAPIClient(process.env.NEYNAR_API_KEY)
 
 export interface CastFeedProps {
@@ -18,11 +19,12 @@ export interface CastFeedProps {
 
 export function CastFeed({ feed }: CastFeedProps) {
   return (
-    <ScrollArea>
+    <>
       {feed.casts.map((cast) => (
-        <div>
+        <div key={cast.hash}>
           <Cast
             key={cast.hash}
+            hash={cast.hash}
             text={cast.text}
             timestamp={cast.timestamp}
             author={{
@@ -40,6 +42,6 @@ export function CastFeed({ feed }: CastFeedProps) {
           <Separator />
         </div>
       ))}
-    </ScrollArea>
+    </>
   )
 }

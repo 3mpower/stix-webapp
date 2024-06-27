@@ -1,4 +1,7 @@
 import { Button } from "@/components/ui/button"
+import StickerSlider from "../sticker-slider"
+import Link from "next/link"
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 interface CastProps {
   text: string
   timestamp: string
@@ -13,30 +16,42 @@ interface CastProps {
     recasts_count: number
     replies_count: number
   }
+  hash: string
 }
-export function Cast({ text, timestamp, author, reactions }: CastProps) {
+export function Cast({ text, timestamp, author, reactions, hash }: CastProps) {
   return (
-    <div className="flex flex-col  bg-white p-4 shadow-md">
-      <div className="flex items-center  space-x-2">
-        <img
-          src={author.pfpUrl}
-          alt={`${author.username}'s profile`}
-          className="h-8 w-8 rounded-full"
-        />
-        <div className="flex flex-row items-end gap-2">
-          <p className="font-bold">{author.displayName}</p>
-          <p className="text-sm text-gray-500">{`@${author.username}`}</p>
-          <p className="text-sm text-gray-500">{timestamp}</p>
+    <div className="container flex flex-col bg-white p-4 pt-1 shadow-md">
+      <Link href={`/${hash}`}>
+        <div className="flex cursor-pointer items-center space-x-2">
+          <Avatar className="h-7 w-7">
+            <AvatarImage
+              className="object-fit"
+              src={author.pfpUrl}
+              alt={`${author.username}'s profile`}
+            />
+            <AvatarFallback>{author.displayName}</AvatarFallback>
+          </Avatar>
+          <div className="flex flex-row items-end gap-2">
+            <p className="font-bold">{author.displayName}</p>
+            <p className="text-sm text-gray-500">{`@${author.username}`}</p>
+            <p className="text-sm text-gray-500">{timestamp}</p>
+          </div>
         </div>
-      </div>
-      <p className="mt-4">{text}</p>
-      <div className="mt-4 flex justify-between">
+        <p className="mt-4 break-words text-sm md:text-base">{text}</p>
+      </Link>
+      <div className="mt-2 flex items-center justify-between text-sm">
         <div className="flex items-end space-x-4">
-          <p>{reactions.likes_count} Likes</p>
-          <p>{reactions.recasts_count} Recasts</p>
-          <p>{reactions.replies_count} Replies</p>
-          <Button className="bg-indigo-400"> + </Button>
+          <Link href={`/${hash}`}>
+            <p>{reactions.likes_count} Likes</p>
+          </Link>
+          <Link className="flex items-end space-x-4" href={`/${hash}`}>
+            <p>{reactions.recasts_count} Recasts</p>
+          </Link>
+          <Link className="flex items-end space-x-4" href={`/${hash}`}>
+            <p>{reactions.replies_count} Replies</p>
+          </Link>
         </div>
+        <StickerSlider />
       </div>
     </div>
   )
