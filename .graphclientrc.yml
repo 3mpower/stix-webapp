@@ -1,0 +1,8 @@
+# .graphclientrc.yml
+sources:
+  - name: stix-subgraph
+    handler:
+      graphql:
+        endpoint: https://api.studio.thegraph.com/query/63752/stix-subgraph/version/latest
+documents:
+  - ./src/stix-query.graphql

@@ -10,7 +10,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build:client": "graphclient build"
   },
   "dependencies": {
     "@neynar/nodejs-sdk": "^1.32.0",
@@ -52,6 +53,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.6.1",
     "@commitlint/config-conventional": "^17.6.1",
+    "@graphprotocol/client-cli": "3.0.0",
     "@ianvs/prettier-plugin-sort-imports": "^3.7.2",
     "eslint": "8.54.0",
     "eslint-config-next": "14.0.3",

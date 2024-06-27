@@ -1,0 +1,32 @@
+query UsrOwnedCollections($userAddr: ID!,$userAddrToken: String!) {
+  user(id: $userAddr) {
+    ownedCollections {
+      id
+      name
+      tokens(where: { owner: $userAddrToken }, first: 10) {
+        id
+      }
+    }
+  }
+}
+
+query UsrOwnedTokensByCollection($userAddr: ID!, $collectionAddr: String) {
+  user(id: $userAddr) {
+    ownedTokens(where: { collection: $collectionAddr }) {
+      id
+      collection {
+        id
+        name
+      }
+    }
+  }
+}
+
+query DnCollections {
+  dncollections(first: 10) {
+    id
+    name
+    symbol
+    baseURI
+  }
+}
