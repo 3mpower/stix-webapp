@@ -101,7 +101,7 @@ const Replies = () => {
                 {moment(reply.dateTime).format("MMMM DD, HH:mm")}
               </p>
             </div>
-            <div className="m my-2 px-10 text-sm">
+            <div className="my-2 px-2 text-sm">
               {reply.type === "text" ? (
                 <p>{reply.comment}</p>
               ) : (
