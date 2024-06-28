@@ -4,8 +4,9 @@ import React, { useState } from "react"
 import { Button } from "./ui/button"
 import { useRouter } from "next/navigation"
 import { useAccount, useSimulateContract, useWriteContract } from "wagmi"
-import { shorten, type AddressString } from "@/lib/utils"
+import { type AddressString } from "@/lib/utils"
 import { DN404ABI } from "@/lib/abis/DN404"
+import { parseEther, parseGwei } from "viem"
 
 const PurchaseWithQuantity = () => {
   const { chain } = useAccount()
@@ -16,13 +17,21 @@ const PurchaseWithQuantity = () => {
   const contractAddress: AddressString | undefined =
     "0xc2df00f6030f11373FccEFCEEe88e89552497b71"
 
-  const { data: simulatedContract } = useSimulateContract({
+  const {
+    data: simulatedContract,
+    isPending: simulatedPending,
+    isError: simulatedError,
+  } = useSimulateContract({
     address: contractAddress,
     abi: DN404ABI,
     functionName: "mint",
-    args: [quantity * 1e18],
-    value: BigInt(0.00004 * 1e18),
+    args: ["0xc6F560083B9168c071f98f5A725e687d61bbe608", parseEther("1")],
+    value: parseEther("0.008"),
   })
+
+  console.log("simulatedPending", simulatedPending)
+  console.log("simulatedContract", simulatedContract)
+  console.log("simulatedError", simulatedError)
 
   const { data, isPending, isError, writeContract } = useWriteContract()
 
@@ -54,8 +63,8 @@ const PurchaseWithQuantity = () => {
 
   const handlePurchase = async () => {
     if (simulatedContract) {
-      await writeContract?.(simulatedContract.request)
-      router.push("/gachapon/reveal")
+      await writeContract?.(simulatedContract?.request)
+      // router.push("/gachapon/reveal")
     }
   }
 
@@ -87,7 +96,7 @@ const PurchaseWithQuantity = () => {
         onClick={handlePurchase}
       >
         <div>Purchase</div>
-        <div>$100</div>
+        <div>$1</div>
       </Button>
     </div>
   )
