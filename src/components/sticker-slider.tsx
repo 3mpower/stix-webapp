@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from "react"
+import React, { use, useEffect, useState } from "react"
 import {
   Drawer,
   DrawerClose,
@@ -14,34 +14,49 @@ import HorizontalSlider from "./sticker-slider/horizontal-header"
 import VerticalSticker from "./sticker-slider/vertical-sticker"
 import { Icons } from "./icons"
 import { Separator } from "./ui/separator"
-import { usePrivy } from "@privy-io/react-auth"
+import {
+  usePrivy,
+  useWallets,
+  getEmbeddedConnectedWallet,
+} from "@privy-io/react-auth"
 import {
   UsrOwnedCollectionsQuery,
   UsrOwnedCollectionsDocument,
   execute,
 } from "@/../../.graphclient"
 import { ExecutionResult } from "graphql"
-interface StickerSliderProps {
-  emoji?: boolean
-}
+// interface StickerSliderProps {
+//   emoji?: boolean
+//   handleStixReply: (stix: string) => void
+// }
 
-const StickerSlider: React.FC<StickerSliderProps> = ({ emoji }) => {
+const StickerSlider = ({
+  emoji,
+  handleStixReply,
+}: {
+  emoji?: boolean
+  handleStixReply: (stix: string) => void
+}) => {
   const [usrCollections, setUsrCollections] =
     useState<ExecutionResult<UsrOwnedCollectionsQuery>>()
 
   const [selectedCollectionIndex, setSelectedCollectionIndex] =
     useState<number>(0)
+
   // usrCollections?.data.user?.ownedCollections
 
-  const { user, ready } = usePrivy()
-  const farcasterAccOwner = user?.farcaster?.ownerAddress
+  // const { user } = usePrivy()
+  const { wallets, ready } = useWallets()
+
+  // const farcasterAccOwner = user?.farcaster?.ownerAddress
+  const embededWallet = getEmbeddedConnectedWallet(wallets)
 
   useEffect(() => {
     // console.log(farcasterAccOwner)
-    if (ready && farcasterAccOwner) {
+    if (ready && embededWallet) {
       execute(UsrOwnedCollectionsDocument, {
-        userAddr: farcasterAccOwner,
-        userAddrToken: farcasterAccOwner,
+        userAddr: embededWallet?.address,
+        userAddrToken: embededWallet?.address,
       }).then((result) => {
         setUsrCollections(result)
         // const { data } = result
@@ -71,6 +86,7 @@ const StickerSlider: React.FC<StickerSliderProps> = ({ emoji }) => {
                 selectedCollectionIndex
               ]
             }
+            handleStixReply={handleStixReply}
           />
         </DrawerHeader>
       </DrawerContent>

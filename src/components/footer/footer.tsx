@@ -24,6 +24,7 @@ const Footer = () => {
         <Icons.pack className="h-7 w-7 fill-muted dark:fill-none" />
         <div className="text-pria text-[9px] text-muted">Buy Pack</div>
       </div> */}
+
       <div className="flex flex-col items-center justify-center gap-1 text-primary">
         <UserAvatar />
         <div className="text-pria text-[9px] text-muted">Profile</div>

@@ -1,4 +1,5 @@
-import Image from "next/image"
+"use client"
+// import Image from "next/image"
 import React from "react"
 
 // const items = [
@@ -19,7 +20,13 @@ import React from "react"
 //   { name: "Item 15", imageUrl: "/images/sticker/mock.png" },
 //   { name: "Item 16", imageUrl: "/images/sticker/mock.png" },
 // ]
-const Stickers = ({ items }: { items: { id: number }[] }) => {
+const Stickers = ({
+  items,
+  handleStixReply,
+}: {
+  items: { id: number }[]
+  handleStixReply: (stix: string) => void
+}) => {
   return (
     <div className="h-[16rem] px-5">
       <div className="grid grid-cols-4 gap-4">
@@ -27,6 +34,11 @@ const Stickers = ({ items }: { items: { id: number }[] }) => {
           <div
             key={index}
             className="flex flex-col items-center justify-center gap-2 rounded border-2 border-blue-500 text-center"
+            onClick={() => {
+              handleStixReply(
+                `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${item.id}.png`
+              )
+            }}
           >
             <img
               src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${item.id}.png`}

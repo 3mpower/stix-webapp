@@ -18,6 +18,7 @@ export default function PrivyProviders({
           accentColor: "#676FFF",
           logo: "/images/vercel.svg",
         },
+        loginMethods: ["farcaster"],
         // Create embedded wallets for users who don't have a wallet
         embeddedWallets: {
           createOnLogin: "users-without-wallets",

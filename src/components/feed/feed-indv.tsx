@@ -1,4 +1,3 @@
-"use client"
 import Leaderboard from "@/components/leaderboard"
 import StickerSlider from "@/components/sticker-slider"
 import TopNav from "@/components/top-nav"
@@ -8,12 +7,19 @@ import Image from "next/image"
 import { useParams } from "next/navigation"
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar"
 import moment from "moment"
+import { ConversationConversation } from "@neynar/nodejs-sdk/build/neynar-api/v2"
 
-const FeedIndv = () => {
-  const { feed } = useParams<{ feed: string }>()
+const FeedIndv = ({
+  conversation,
+}: {
+  conversation: ConversationConversation
+}) => {
+  // const { feed } = conversation<{ feed: string }>()
 
-  const specificFeed = mockFeed.casts.find((item) => item.hash === feed)
-  var formattedDate = moment(specificFeed?.timestamp).format("MMMM DD, HH:mm")
+  // const specificFeed = mockFeed.casts.find((item) => item.hash === feed)
+  var formattedDate = moment(conversation.cast.timestamp).format(
+    "MMMM DD, HH:mm"
+  )
 
   return (
     <>
@@ -24,33 +30,37 @@ const FeedIndv = () => {
             <Avatar className="h-7 w-7">
               <AvatarImage
                 className="object-fit"
-                src={specificFeed?.author.pfp_url ?? ""}
-                alt={`${specificFeed?.author.username}'s profile`}
+                src={conversation.cast.author.pfp_url ?? ""}
+                alt={`${conversation.cast.author.username}'s profile`}
               />
               <AvatarFallback>
-                {specificFeed?.author.display_name}
+                {conversation.cast.author.display_name}
               </AvatarFallback>
             </Avatar>
             <div className="flex w-full flex-row items-center justify-between gap-2">
               <div>
-                <p className="font-bold">{specificFeed?.author.display_name}</p>
-                <p className="text-sm text-gray-500">{`@${specificFeed?.author.username}`}</p>
+                <p className="font-bold">
+                  {conversation.cast.author.display_name}
+                </p>
+                <p className="text-sm text-gray-500">{`@${conversation.cast.author.username}`}</p>
               </div>
               <p className="text-sm text-gray-500">{formattedDate}</p>
             </div>
           </div>
           <p className="mt-4 break-words text-sm md:text-base">
-            {specificFeed?.text ?? ""}
+            {conversation.cast.text ?? ""}
           </p>
           <div className="mt-2 flex items-center justify-between">
             <div className="flex items-end space-x-4">
               <p className="text-sm">
-                {specificFeed?.reactions.likes_count} Likes
+                {conversation.cast.reactions.likes_count} Likes
               </p>
               <p className="text-sm">
-                {specificFeed?.reactions.recasts_count} Recasts
+                {conversation.cast.reactions.recasts_count} Recasts
               </p>
-              <p className="text-sm">{specificFeed?.replies.count} Replies</p>
+              <p className="text-sm">
+                {conversation.cast.replies.count} Replies
+              </p>
             </div>
             <StickerSlider />
           </div>

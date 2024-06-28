@@ -5,12 +5,17 @@ import { ScrollArea, ScrollBar } from "../ui/scroll-area"
 
 const VerticalSticker = ({
   selectedCollection,
+  handleStixReply,
 }: {
   selectedCollection: any
+  handleStixReply: (stix: string) => void
 }) => {
   return (
     <ScrollArea className="mt-3">
-      <Stickers items={selectedCollection.tokens ?? null} />
+      <Stickers
+        items={selectedCollection.tokens ?? null}
+        handleStixReply={handleStixReply}
+      />
       <ScrollBar orientation="vertical" />
     </ScrollArea>
   )
