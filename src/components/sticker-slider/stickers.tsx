@@ -1,6 +1,7 @@
 "use client"
 // import Image from "next/image"
 import React from "react"
+import {  DrawerClose } from "../ui/drawer"
 
 // const items = [
 //   { name: "Item 1", imageUrl: "/images/sticker/mock.png" },
@@ -31,9 +32,10 @@ const Stickers = ({
     <div className="h-[16rem] px-5">
       <div className="grid grid-cols-4 gap-4">
         {items.map((item, index) => (
+          <DrawerClose>
           <div
             key={index}
-            className="flex flex-col items-center justify-center gap-2 rounded border-2 border-blue-500 text-center"
+            className="flex flex-col items-center justify-center gap-2 rounded text-center"
             onClick={() => {
               handleStixReply(
                 `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${item.id}.png`
@@ -47,8 +49,9 @@ const Stickers = ({
               alt={item.id.toString()}
               className="mx-auto rounded-lg"
             />
-            <p className="text-sm">{item.id}</p>
+            {/* <p className="text-sm">{item.id}</p> */}
           </div>
+          </DrawerClose>
         ))}
       </div>
     </div>

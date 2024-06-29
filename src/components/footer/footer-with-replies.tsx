@@ -36,6 +36,7 @@ const CommentFooter = ({
   setReplies: React.Dispatch<React.SetStateAction<Replies[]>>
 }) => {
   const [text, setText] = useState("")
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     getFarcasterSignerPublicKey,
@@ -73,32 +74,39 @@ const CommentFooter = ({
 
     console.log({ privySigner })
 
-    const res = await hubClient.submitCast(
-      {
-        text,
-        parentCastId: {
-          fid: parentAuthorId,
-          hash,
+    try {
+      setIsLoading(true)
+      const res = await hubClient.submitCast(
+        {
+          text,
+          parentCastId: {
+            fid: parentAuthorId,
+            hash,
+          },
         },
-      },
-      user?.farcaster.fid,
-      privySigner
-    )
-    console.log(res.data)
+        user?.farcaster.fid,
+        privySigner
+      )
+      console.log(res.data)
 
-    setReplies((prev) => [
-      ...prev,
-      {
-        author: {
-          display_name: user?.farcaster?.displayName ?? "",
-          username: user?.farcaster?.username ?? "",
-          pfp_url: user?.farcaster?.pfp ?? "",
+      setReplies((prev) => [
+        ...prev,
+        {
+          author: {
+            display_name: user?.farcaster?.displayName ?? "",
+            username: user?.farcaster?.username ?? "",
+            pfp_url: user?.farcaster?.pfp ?? "",
+          },
+          text,
+          timestamp: new Date().toISOString(),
         },
-        text,
-        timestamp: new Date().toISOString(),
-      },
-    ])
-    setText("")
+      ])
+      setText("")
+      setIsLoading(false)
+    } catch (error) {
+      console.error(error)
+    }
+
   }
 
   const handleStixReply = async (stix: string) => {
@@ -106,38 +114,44 @@ const CommentFooter = ({
       return
     }
 
-    const res = await hubClient.submitCast(
-      {
-        text: "",
-        embeds: [
-          {
-            url: stix,
+    try {
+      setIsLoading(true)
+      const res = await hubClient.submitCast(
+        {
+          text: "",
+          embeds: [
+            {
+              url: stix,
+            },
+          ],
+          parentCastId: {
+            fid: parentAuthorId,
+            hash,
           },
-        ],
-        parentCastId: {
-          fid: parentAuthorId,
-          hash,
         },
-      },
-      user.farcaster.fid,
-      privySigner
-    )
+        user.farcaster.fid,
+        privySigner
+      )
 
-    console.log(res.data)
-    setReplies((prev) => [
-      ...prev,
-      {
-        author: {
-          display_name: user?.farcaster?.displayName ?? "",
-          username: user?.farcaster?.username ?? "",
-          pfp_url: user?.farcaster?.pfp ?? "",
+      console.log(res.data)
+      setReplies((prev) => [
+        ...prev,
+        {
+          author: {
+            display_name: user?.farcaster?.displayName ?? "",
+            username: user?.farcaster?.username ?? "",
+            pfp_url: user?.farcaster?.pfp ?? "",
+          },
+          text: "",
+          embeds: [{ url: stix }],
+          timestamp: new Date().toISOString(),
         },
-        text: "",
-        embeds: [{ url: stix }],
-        timestamp: new Date().toISOString(),
-      },
-    ])
-    setText("")
+      ])
+      setText("")
+      setIsLoading(false)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
@@ -161,6 +175,8 @@ const CommentFooter = ({
               placeholder="Reply to @ownerOfThisComment"
               className="w-full rounded-l-full border-none pl-5"
               onChange={(e) => setText(e.target.value)}
+              value={text}
+              disabled={isLoading}
             />
             <Button
               variant="ghost"
