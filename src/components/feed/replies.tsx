@@ -117,12 +117,9 @@ const Replies = ({
     <div className="container p-4 pt-0">
       <div className="pt-0">
         {replies.map((reply, index) => (
-          <>
+          <div key={index}>
             <Separator />
-            <div
-              key={index}
-              className="my-3 flex w-full items-start justify-between"
-            >
+            <div className="my-3 flex w-full items-start justify-between">
               <div className="flex">
                 <Avatar className="h-9 w-9">
                   <AvatarImage
@@ -159,7 +156,7 @@ const Replies = ({
                   </div>
                 ))}
             </div>
-          </>
+          </div>
         ))}
       </div>
       <CommentFooter

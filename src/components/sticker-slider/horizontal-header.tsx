@@ -88,7 +88,7 @@ const HorizontalSlider = ({
   const [selectedArtwork, setSelectedArtwork] = useState<number>(1)
 
   return (
-    <ScrollArea className="w-full whitespace-nowrap rounded-md py-3">
+    <ScrollArea className="w-full whitespace-nowrap rounded-md pt-3">
       <div className="flex h-full">
         {usrCollections?.data &&
           usrCollections?.data.user?.ownedCollections.map((artwork) => (

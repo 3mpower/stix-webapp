@@ -7,14 +7,24 @@ import { Input } from "@/components/ui/input"
 import StickerSlider from "../sticker-slider"
 import {
   FarcasterWithMetadata,
+  getEmbeddedConnectedWallet,
   useExperimentalFarcasterSigner,
   usePrivy,
+  useWallets,
 } from "@privy-io/react-auth"
 import { ExternalEd25519Signer } from "@standard-crypto/farcaster-js"
 import { hubClient } from "@/lib/hubClient"
 import { Button } from "../ui/button"
 import { CastWithInteractionsAndConversations } from "@neynar/nodejs-sdk/build/neynar-api/v2"
 import { Replies } from "../feed/replies"
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 
 const CommentFooter = ({
   hash,
@@ -26,13 +36,16 @@ const CommentFooter = ({
   setReplies: React.Dispatch<React.SetStateAction<Replies[]>>
 }) => {
   const [text, setText] = useState("")
-  const { user } = usePrivy()
+  const [isLoading, setIsLoading] = useState(false)
 
   const {
     getFarcasterSignerPublicKey,
     signFarcasterMessage,
     requestFarcasterSignerFromWarpcast,
   } = useExperimentalFarcasterSigner()
+
+  const { logout, user, authenticated } = usePrivy()
+  const { ready, wallets } = useWallets()
 
   if (!user) {
     return null
@@ -45,6 +58,11 @@ const CommentFooter = ({
     getFarcasterSignerPublicKey
   )
 
+  const embedWallet = getEmbeddedConnectedWallet(wallets)
+  if (!authenticated && !ready && !embedWallet) {
+    return null
+  }
+
   const handleReply = async () => {
     // const signedComment = await privySigner.signMessage(comment)
 
@@ -56,32 +74,38 @@ const CommentFooter = ({
 
     console.log({ privySigner })
 
-    const res = await hubClient.submitCast(
-      {
-        text,
-        parentCastId: {
-          fid: parentAuthorId,
-          hash,
+    try {
+      setIsLoading(true)
+      const res = await hubClient.submitCast(
+        {
+          text,
+          parentCastId: {
+            fid: parentAuthorId,
+            hash,
+          },
         },
-      },
-      user?.farcaster.fid,
-      privySigner
-    )
-    console.log(res.data)
+        user?.farcaster.fid,
+        privySigner
+      )
+      console.log(res.data)
 
-    setReplies((prev) => [
-      ...prev,
-      {
-        author: {
-          display_name: user?.farcaster?.displayName ?? "",
-          username: user?.farcaster?.username ?? "",
-          pfp_url: user?.farcaster?.pfp ?? "",
+      setReplies((prev) => [
+        ...prev,
+        {
+          author: {
+            display_name: user?.farcaster?.displayName ?? "",
+            username: user?.farcaster?.username ?? "",
+            pfp_url: user?.farcaster?.pfp ?? "",
+          },
+          text,
+          timestamp: new Date().toISOString(),
         },
-        text,
-        timestamp: new Date().toISOString(),
-      },
-    ])
-    setText("")
+      ])
+      setText("")
+      setIsLoading(false)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const handleStixReply = async (stix: string) => {
@@ -89,45 +113,52 @@ const CommentFooter = ({
       return
     }
 
-    const res = await hubClient.submitCast(
-      {
-        text: "",
-        embeds: [
-          {
-            url: stix,
+    try {
+      setIsLoading(true)
+      const res = await hubClient.submitCast(
+        {
+          text: "",
+          embeds: [
+            {
+              url: stix,
+            },
+          ],
+          parentCastId: {
+            fid: parentAuthorId,
+            hash,
           },
-        ],
-        parentCastId: {
-          fid: parentAuthorId,
-          hash,
         },
-      },
-      user.farcaster.fid,
-      privySigner
-    )
+        user.farcaster.fid,
+        privySigner
+      )
 
-    console.log(res.data)
-    setReplies((prev) => [
-      ...prev,
-      {
-        author: {
-          display_name: user?.farcaster?.displayName ?? "",
-          username: user?.farcaster?.username ?? "",
-          pfp_url: user?.farcaster?.pfp ?? "",
+      console.log(res.data)
+      setReplies((prev) => [
+        ...prev,
+        {
+          author: {
+            display_name: user?.farcaster?.displayName ?? "",
+            username: user?.farcaster?.username ?? "",
+            pfp_url: user?.farcaster?.pfp ?? "",
+          },
+          text: "",
+          embeds: [{ url: stix }],
+          timestamp: new Date().toISOString(),
         },
-        text: "",
-        embeds: [{ url: stix }],
-        timestamp: new Date().toISOString(),
-      },
-    ])
-    setText("")
+      ])
+      setText("")
+      setIsLoading(false)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
     <div className="fixed bottom-0 left-0 flex w-screen flex-col border border-primary  bg-popover-secondary">
       <div className="flex w-full items-center justify-between p-2">
         {!farcasterAccount ||
-        (farcasterAccount as FarcasterWithMetadata).signerPublicKey === undefined ? (
+        (farcasterAccount as FarcasterWithMetadata).signerPublicKey ===
+          undefined ? (
           <Button
             variant="default"
             className="w-full bg-neutral-200 text-slate-900 opacity-100"
@@ -143,6 +174,8 @@ const CommentFooter = ({
               placeholder="Reply to @ownerOfThisComment"
               className="w-full rounded-l-full border-none pl-5"
               onChange={(e) => setText(e.target.value)}
+              value={text}
+              disabled={isLoading}
             />
             <Button
               variant="ghost"
@@ -174,10 +207,34 @@ const CommentFooter = ({
         <Icons.pack className="h-7 w-7 fill-muted dark:fill-none" />
         <div className="text-pria text-[9px] text-muted">Buy Pack</div>
       </div> */}
-        <div className="flex flex-col items-center justify-center gap-1 text-primary">
-          <UserAvatar />
-          <div className="text-pria text-[9px] text-muted">Profile</div>
-        </div>
+        <Sheet>
+          <SheetTrigger>
+            <div className="flex flex-col items-center justify-center gap-1 text-primary">
+              <UserAvatar />
+              <div className="text-pria text-[9px] text-muted">Wallet</div>
+            </div>
+          </SheetTrigger>
+          <SheetContent className="bg-[#818CF8] text-white" side="bottom">
+            <SheetHeader>
+              <SheetTitle className="text-white">Wallet</SheetTitle>
+              <SheetDescription className="text-white">
+                {`${embedWallet?.address}`}
+              </SheetDescription>
+              <div>
+                <Button
+                  onClick={() => {
+                    logout()
+                    window.location.reload()
+                  }}
+                  variant="secondary"
+                  className="mt-5 text-gray-200"
+                >
+                  Logout
+                </Button>
+              </div>
+            </SheetHeader>
+          </SheetContent>
+        </Sheet>
       </div>
     </div>
   )

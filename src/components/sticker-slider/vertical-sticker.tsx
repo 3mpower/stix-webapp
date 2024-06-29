@@ -1,5 +1,4 @@
 import React from "react"
-import Recommendation from "../recommendation"
 import Stickers from "./stickers"
 import { ScrollArea, ScrollBar } from "../ui/scroll-area"
 
