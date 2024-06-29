@@ -7,14 +7,24 @@ import { Input } from "@/components/ui/input"
 import StickerSlider from "../sticker-slider"
 import {
   FarcasterWithMetadata,
+  getEmbeddedConnectedWallet,
   useExperimentalFarcasterSigner,
   usePrivy,
+  useWallets,
 } from "@privy-io/react-auth"
 import { ExternalEd25519Signer } from "@standard-crypto/farcaster-js"
 import { hubClient } from "@/lib/hubClient"
 import { Button } from "../ui/button"
 import { CastWithInteractionsAndConversations } from "@neynar/nodejs-sdk/build/neynar-api/v2"
 import { Replies } from "../feed/replies"
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 
 const CommentFooter = ({
   hash,
@@ -26,13 +36,15 @@ const CommentFooter = ({
   setReplies: React.Dispatch<React.SetStateAction<Replies[]>>
 }) => {
   const [text, setText] = useState("")
-  const { user } = usePrivy()
 
   const {
     getFarcasterSignerPublicKey,
     signFarcasterMessage,
     requestFarcasterSignerFromWarpcast,
   } = useExperimentalFarcasterSigner()
+
+  const { logout, user, authenticated } = usePrivy()
+  const { ready, wallets } = useWallets()
 
   if (!user) {
     return null
@@ -44,6 +56,11 @@ const CommentFooter = ({
     signFarcasterMessage,
     getFarcasterSignerPublicKey
   )
+
+  const embedWallet = getEmbeddedConnectedWallet(wallets)
+  if (!authenticated && !ready && !embedWallet) {
+    return null
+  }
 
   const handleReply = async () => {
     // const signedComment = await privySigner.signMessage(comment)
@@ -127,7 +144,8 @@ const CommentFooter = ({
     <div className="fixed bottom-0 left-0 flex w-screen flex-col border border-primary  bg-popover-secondary">
       <div className="flex w-full items-center justify-between p-2">
         {!farcasterAccount ||
-        (farcasterAccount as FarcasterWithMetadata).signerPublicKey === undefined ? (
+        (farcasterAccount as FarcasterWithMetadata).signerPublicKey ===
+          undefined ? (
           <Button
             variant="default"
             className="w-full bg-neutral-200 text-slate-900 opacity-100"
@@ -174,10 +192,34 @@ const CommentFooter = ({
         <Icons.pack className="h-7 w-7 fill-muted dark:fill-none" />
         <div className="text-pria text-[9px] text-muted">Buy Pack</div>
       </div> */}
-        <div className="flex flex-col items-center justify-center gap-1 text-primary">
-          <UserAvatar />
-          <div className="text-pria text-[9px] text-muted">Profile</div>
-        </div>
+        <Sheet>
+          <SheetTrigger>
+            <div className="flex flex-col items-center justify-center gap-1 text-primary">
+              <UserAvatar />
+              <div className="text-pria text-[9px] text-muted">Wallet</div>
+            </div>
+          </SheetTrigger>
+          <SheetContent className="bg-[#818CF8] text-white" side="bottom">
+            <SheetHeader>
+              <SheetTitle className="text-white">Wallet</SheetTitle>
+              <SheetDescription className="text-white">
+                {`${embedWallet?.address}`}
+              </SheetDescription>
+              <div >
+                <Button
+                    onClick={() => {
+                      logout()
+                      window.location.reload();
+                    }}
+                    variant="secondary"
+                    className="text-gray-200 mt-5"
+                  >
+                    Logout
+                  </Button>
+              </div>
+            </SheetHeader>
+          </SheetContent>
+        </Sheet>
       </div>
     </div>
   )
