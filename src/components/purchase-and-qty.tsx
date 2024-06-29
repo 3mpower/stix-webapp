@@ -1,55 +1,77 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Button } from "./ui/button"
-import { useRouter } from "next/navigation"
-import { useAccount, useSimulateContract, useWriteContract } from "wagmi"
+// import { useRouter } from "next/navigation"
+// import { useAccount, useSimulateContract, useWriteContract } from "wagmi"
 import { type AddressString } from "@/lib/utils"
 import { DN404ABI } from "@/lib/abis/DN404"
-import { parseEther, parseGwei } from "viem"
+import {
+  createWalletClient,
+  custom,
+  formatEther,
+  parseEther,
+  parseGwei,
+} from "viem"
+import { baseSepolia } from "viem/chains"
+import {
+  usePrivy,
+  useWallets,
+  getEmbeddedConnectedWallet,
+} from "@privy-io/react-auth"
+import { read } from "fs"
+import { useSimulateContract } from "wagmi"
+import { publicClient } from "./providers/privy-provider"
 
 const PurchaseWithQuantity = () => {
-  const { chain } = useAccount()
-  const router = useRouter()
+  // const { chain } = useAccount()
+  // const router = useRouter()
   const [quantity, setQuantity] = useState(1)
+  const { wallets, ready } = useWallets()
+  // const { sendTransaction, ready } = usePrivy()
+
+  if (!ready) {
+    return <div>Loading...</div>
+  }
+
+  const embedWallet = getEmbeddedConnectedWallet(wallets)
 
   /// @dev The contract address of the NFT
   const contractAddress: AddressString | undefined =
-    "0xc2df00f6030f11373FccEFCEEe88e89552497b71"
+    "0xC56aAada39F4F7776aae1C7B1a724A1c6ff9B4E6"
 
-  const {
-    data: simulatedContract,
-    isPending: simulatedPending,
-    isError: simulatedError,
-  } = useSimulateContract({
-    address: contractAddress,
-    abi: DN404ABI,
-    functionName: "mint",
-    args: ["0xc6F560083B9168c071f98f5A725e687d61bbe608", parseEther("1")],
-    value: parseEther("0.008"),
-  })
+  const price = "0.000001"
+  // console.log("simulatedPending", simulatedPending)
+  // console.log("simulatedContract", simulatedContract)
+  // console.log("simulatedError", simulatedError)
 
-  console.log("simulatedPending", simulatedPending)
-  console.log("simulatedContract", simulatedContract)
-  console.log("simulatedError", simulatedError)
+  // const { data, isPending, isError, writeContract } = useWriteContract()
 
-  const { data, isPending, isError, writeContract } = useWriteContract()
+  // if (!chain) {
+  //   return (
+  //     <div title="useContractWrite">
+  //       <p>Loading...</p>
+  //     </div>
+  //   )
+  // }
 
-  if (!chain) {
-    return (
-      <div title="useContractWrite">
-        <p>Loading...</p>
-      </div>
-    )
-  }
+  // if (!contractAddress) {
+  //   return (
+  //     <div title="useContractWrite">
+  //       <p>Unsupported network. Please switch to Goerli or Mainnet.</p>
+  //     </div>
+  //   )
+  // }
 
-  if (!contractAddress) {
-    return (
-      <div title="useContractWrite">
-        <p>Unsupported network. Please switch to Goerli or Mainnet.</p>
-      </div>
-    )
-  }
+  // useEffect(() => {
+  //   // console.log("useEffect", embedWallet)
+  //   async function switchChain() {
+  //     if (ready && embedWallet) {
+  //       await embedWallet.switchChain(baseSepolia.id)
+  //     }
+  //   }
+  //   switchChain()
+  // }, [])
 
   const increment = () => {
     setQuantity(quantity + 1)
@@ -62,10 +84,53 @@ const PurchaseWithQuantity = () => {
   }
 
   const handlePurchase = async () => {
-    if (simulatedContract) {
-      await writeContract?.(simulatedContract?.request)
-      // router.push("/gachapon/reveal")
+    if (!embedWallet) {
+      return
     }
+
+    await embedWallet.switchChain(baseSepolia.id)
+
+    const provider = await embedWallet.getEthereumProvider()
+
+    const walletClient = createWalletClient({
+      chain: baseSepolia,
+      transport: custom(provider),
+    })
+
+    const amountVal = parseEther("0.000001") * BigInt(quantity)
+
+    const { request } = await publicClient.simulateContract({
+      account: `0x${embedWallet.address.split("0x")[1]}`,
+      address: contractAddress,
+      abi: DN404ABI,
+      args: [embedWallet.address, parseEther(quantity.toString())],
+      value: amountVal,
+      functionName: "mint",
+    })
+
+    if (!request) {
+      return
+    }
+
+    const res = await walletClient.writeContract(request)
+    console.log(res)
+
+    // const {
+    //   data: simulatedContract,
+    //   isPending: simulatedPending,
+    //   isError: simulatedError,
+    // } = useSimulateContract({
+    //   address: contractAddress,
+    //   abi: DN404ABI,
+    //   functionName: "mint",
+    //   args: ["0xc6F560083B9168c071f98f5A725e687d61bbe608", parseEther("1")],
+    //   value: parseEther("0.008"),
+    // })
+
+    // if (simulatedContract) {
+    //   // await writeContract?.(simulatedContract?.request)
+    //   // router.push("/gachapon/reveal")
+    // }
   }
 
   return (
@@ -96,7 +161,7 @@ const PurchaseWithQuantity = () => {
         onClick={handlePurchase}
       >
         <div>Purchase</div>
-        <div>$1</div>
+        <div>{`${formatEther(parseEther(price) * BigInt(quantity))}eth`}</div>
       </Button>
     </div>
   )
