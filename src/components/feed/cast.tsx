@@ -3,6 +3,7 @@ import StickerSlider from "../sticker-slider"
 import Link from "next/link"
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import moment from "moment"
+import { Icons } from "../icons"
 interface CastProps {
   text: string
   timestamp: string
@@ -20,43 +21,51 @@ interface CastProps {
   hash: string
 }
 export function Cast({ text, timestamp, author, reactions, hash }: CastProps) {
-  var formattedDate = moment(timestamp).format("MMMM DD, HH:mm")
+  const formattedDate = moment(timestamp)
+    .fromNow()
+    .replace("hours", "h")
+    .replace("ago", "")
   return (
-    <div className="container flex flex-col bg-white p-4 pt-1 shadow-md">
+    <div className="container flex flex-col bg-white p-2 pt-1">
       <Link href={`/${hash}`}>
-        <div className="flex cursor-pointer items-center space-x-2">
-          <Avatar className="h-7 w-7">
+        <div className="flex cursor-pointer items-start">
+          <Avatar>
             <AvatarImage
               className="object-fit"
               src={author.pfpUrl}
               alt={`${author.username}'s profile`}
             />
-            <AvatarFallback>{author.displayName}</AvatarFallback>
+            <AvatarFallback className="uppercase">
+              {author.displayName.substring(0, 2)}
+            </AvatarFallback>
           </Avatar>
-          <div className="flex w-full flex-row items-center justify-between">
-            <div className="flex flex-col items-start">
-              <p className="font-bold">{author.displayName}</p>
-              <p className="text-sm text-gray-500">{`@${author.username}`}</p>
+          <div className="flex w-full flex-col px-2">
+            <div className="flex items-center">
+              <p className="text-sm font-bold">{author.displayName}</p>
+              <p className="mx-1 text-muted-foreground">•</p>
+              <p className="text-sm text-muted-foreground">{`@${author.username}`}</p>
+              <p className="mx-1 text-muted-foreground">•</p>
+              <p className="text-xs text-muted-foreground">{formattedDate}</p>
             </div>
-
-            <p className="text-sm text-gray-500">{formattedDate}</p>
+            <p className="break-words text-sm md:text-base">
+              {text.substring(0, 250)}
+              {text.length > 250 ? "..." : ""}
+            </p>
           </div>
         </div>
-        <p className="mt-4 break-words text-sm md:text-base">{text}</p>
       </Link>
-      <div className="mt-2 flex items-center justify-between text-sm">
-        <div className="flex items-end space-x-4">
-          <Link href={`/${hash}`}>
-            <p>{reactions.likes_count} Likes</p>
-          </Link>
-          <Link className="flex items-end space-x-4" href={`/${hash}`}>
-            <p>{reactions.recasts_count} Recasts</p>
-          </Link>
-          <Link className="flex items-end space-x-4" href={`/${hash}`}>
-            <p>{reactions.replies_count} Replies</p>
-          </Link>
+      <div className="mx-12 mt-2 flex items-center justify-between text-sm">
+        <div className="flex items-end space-x-4 text-muted-foreground">
+          <p className="flex items-center text-sm">
+            {reactions.likes_count} <Icons.heart className="ml-1 w-4" />
+          </p>
+          <p className="flex items-center text-sm">
+            {reactions.recasts_count} <Icons.recast className="ml-1 w-4" />
+          </p>
+          <p className="flex items-center text-sm">
+            {reactions.replies_count} <Icons.reply className="ml-1 w-4" />
+          </p>
         </div>
-        {/* <StickerSlider /> */}
       </div>
     </div>
   )

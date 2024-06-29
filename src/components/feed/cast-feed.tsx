@@ -13,7 +13,7 @@ export interface CastFeedProps {
 
 export function CastFeed({ feed }: CastFeedProps) {
   return (
-    <>
+    <div className="flex flex-col gap-2">
       {feed.casts.map((cast) => (
         <div key={cast.hash}>
           <Cast
@@ -33,9 +33,8 @@ export function CastFeed({ feed }: CastFeedProps) {
               replies_count: cast.replies.count,
             }}
           />
-          {/* <Separator /> */}
         </div>
       ))}
-    </>
+    </div>
   )
 }

@@ -8,6 +8,7 @@ import { useParams } from "next/navigation"
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar"
 import moment from "moment"
 import { ConversationConversation } from "@neynar/nodejs-sdk/build/neynar-api/v2"
+import { Icons } from "../icons"
 
 const FeedIndv = ({
   conversation,
@@ -26,8 +27,8 @@ const FeedIndv = ({
       <div className="h-auto">
         <TopNav />
         <div className="container flex flex-col bg-white p-4  pt-1">
-          <div className="flex items-center  space-x-2">
-            <Avatar className="h-7 w-7">
+          <div className="flex">
+            <Avatar>
               <AvatarImage
                 className="object-fit"
                 src={conversation.cast.author.pfp_url ?? ""}
@@ -37,32 +38,36 @@ const FeedIndv = ({
                 {conversation.cast.author.display_name}
               </AvatarFallback>
             </Avatar>
-            <div className="flex w-full flex-row items-center justify-between gap-2">
-              <div>
-                <p className="font-bold">
+            <div className="flex w-full flex-col px-2">
+              <div className="flex items-center">
+                <p className="text-sm font-bold">
                   {conversation.cast.author.display_name}
                 </p>
-                <p className="text-sm text-gray-500">{`@${conversation.cast.author.username}`}</p>
+                <p className="mx-1 text-muted-foreground">•</p>
+                <p className="text-sm text-muted-foreground">{`@${conversation.cast.author.username}`}</p>
+                <p className="mx-1 text-muted-foreground">•</p>
+                <p className="text-xs text-muted-foreground">{formattedDate}</p>
               </div>
-              <p className="text-sm text-gray-500">{formattedDate}</p>
+              <p className="break-words text-sm md:text-base">
+                {conversation.cast.text}
+              </p>
             </div>
           </div>
-          <p className="mt-4 break-words text-sm md:text-base">
-            {conversation.cast.text ?? ""}
-          </p>
-          <div className="mt-2 flex items-center justify-between">
-            <div className="flex items-end space-x-4">
-              <p className="text-sm">
-                {conversation.cast.reactions.likes_count} Likes
+          <div className="mx-12 mt-2 flex items-center justify-between text-sm">
+            <div className="flex items-end space-x-4 text-muted-foreground">
+              <p className="flex items-center text-sm">
+                {conversation.cast.reactions.likes_count}{" "}
+                <Icons.heart className="ml-1 w-4" />
               </p>
-              <p className="text-sm">
-                {conversation.cast.reactions.recasts_count} Recasts
+              <p className="flex items-center text-sm">
+                {conversation.cast.reactions.recasts_count}{" "}
+                <Icons.recast className="ml-1 w-4" />
               </p>
-              <p className="text-sm">
-                {conversation.cast.replies.count} Replies
+              <p className="flex items-center text-sm">
+                {conversation.cast.replies.count}{" "}
+                <Icons.reply className="ml-1 w-4" />
               </p>
             </div>
-            {/* <StickerSlider /> */}
           </div>
         </div>
       </div>

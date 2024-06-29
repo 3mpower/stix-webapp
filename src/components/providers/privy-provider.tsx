@@ -27,7 +27,7 @@ const privyConfig: PrivyClientConfig = {
   appearance: {
     theme: "light",
     accentColor: "#676FFF",
-    logo: "/images/vercel.svg",
+    logo: "/images/stix-logo-rounded.png",
   },
   loginMethods: ["farcaster"],
   // Create embedded wallets for users who don't have a wallet

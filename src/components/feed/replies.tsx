@@ -34,68 +34,6 @@ export interface Replies {
   embeds?: EmbeddedCast[] | undefined
 }
 
-// const replies: CommentProps[] = [
-//   {
-//     userTag: "@aliceinnwonderland",
-//     name: "Alice Real",
-//     userImage: "/images/sticker.png",
-//     comment:
-//       "This is a text comment from Alice. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore, quaerat! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore, quaerat!",
-//     type: "text",
-//     dateTime: "2024-06-22T07:48:20+07:00",
-//   },
-//   {
-//     userTag: "@bob",
-//     name: "Bob Real",
-//     userImage: "/images/sticker.png",
-//     comment: "",
-//     type: "sticker",
-//     stickerImage: "/images/sticker/mock.png",
-//     dateTime: "2024-06-22T07:48:20+07:00",
-//   },
-//   {
-//     userTag: "@charlie",
-//     name: "Charlie Real",
-//     userImage: "/images/sticker.png",
-//     comment: "This is another text comment from Charlie.",
-//     type: "text",
-//     dateTime: "2024-06-22T07:48:20+07:00",
-//   },
-//   {
-//     userTag: "@diana",
-//     name: "Diana Ross",
-//     userImage: "/images/sticker.png",
-//     comment: "",
-//     type: "sticker",
-//     stickerImage: "/images/sticker/mock.png",
-//     dateTime: "2024-06-22T07:48:20+07:00",
-//   },
-//   {
-//     userTag: "@eve",
-//     name: "Eve Adams",
-//     userImage: "/images/sticker.png",
-//     comment: "This is a text comment from Eve.",
-//     type: "text",
-//     dateTime: "2024-06-22T07:48:20+07:00",
-//   },
-//   {
-//     userTag: "@frank",
-//     name: "Frank Sinatra",
-//     userImage: "/images/sticker.png",
-//     comment: "This is a text comment from Frank.",
-//     type: "text",
-//     dateTime: "2024-06-22T07:48:20+07:00",
-//   },
-//   {
-//     userTag: "@grace",
-//     name: "Grace Real",
-//     userImage: "/images/sticker.png",
-//     comment: "",
-//     type: "sticker",
-//     stickerImage: "/images/sticker/mock.png",
-//     dateTime: "2024-06-22T07:48:20+07:00",
-//   },
-// ]
 const Replies = ({
   conversation,
 }: {
@@ -114,50 +52,60 @@ const Replies = ({
   const hash = conversation.cast.hash
 
   return (
-    <div className="container p-4 pt-0">
+    <div className="pt-0">
       <div className="pt-0">
-        {replies.map((reply, index) => (
-          <div key={index}>
-            <Separator />
-            <div className="my-3 flex w-full items-start justify-between">
-              <div className="flex">
-                <Avatar className="h-9 w-9">
-                  <AvatarImage
-                    src={reply.author.pfp_url}
-                    alt={reply.author.username}
-                  />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-                <div className="px-2 text-sm">
-                  <h1 className="flex items-center font-bold">
-                    {reply.author.display_name}
-                  </h1>
-                  <p className="text-sm text-gray-500">
-                    {`@${reply.author.username}`}
-                  </p>
+        {replies.map((reply, index) => {
+          const formattedDate = moment(reply.timestamp)
+            .fromNow()
+            .replace("hours", "h")
+            .replace("minutes", "m")
+            .replace("ago", "")
+          return (
+            <div key={index}>
+              <Separator className="bg-neutral-200" />
+              <div className="my-4 flex w-full items-start justify-between px-4">
+                <div className="flex w-full">
+                  <Avatar>
+                    <AvatarImage
+                      src={reply.author.pfp_url}
+                      alt={reply.author.username}
+                    />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                  <div className="flex w-full flex-col px-2 text-sm">
+                    <div className="flex items-center">
+                      <h1 className="flex items-center font-bold">
+                        {reply.author.display_name}
+                      </h1>
+                      <p className="mx-1 text-muted-foreground">•</p>
+                      <p className="text-sm text-gray-500">
+                        {`@${reply.author.username}`}
+                      </p>
+                      <p className="mx-1 text-muted-foreground">•</p>
+                      <p className="text-xs text-muted-foreground">
+                        {formattedDate}
+                      </p>
+                    </div>
+                    <div className="text-sm">
+                      <p>{reply.text}</p>
+                      {reply.embeds &&
+                        reply.embeds.map((embed, index) => (
+                          <div key={index} className="my-2">
+                            <img
+                              src={(embed as EmbedUrl).url}
+                              alt={"stix"}
+                              width={200}
+                              height={200}
+                            />
+                          </div>
+                        ))}
+                    </div>
+                  </div>
                 </div>
               </div>
-              <p className="text-xs">
-                {moment(reply.timestamp).format("MMMM DD, HH:mm")}
-              </p>
             </div>
-            <div className="my-2 px-2 text-sm">
-              <p>{reply.text}</p>
-
-              {reply.embeds &&
-                reply.embeds.map((embed, index) => (
-                  <div key={index} className="my-2">
-                    <img
-                      src={(embed as EmbedUrl).url}
-                      alt={"stix"}
-                      width={200}
-                      height={200}
-                    />
-                  </div>
-                ))}
-            </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
       <CommentFooter
         hash={hash}

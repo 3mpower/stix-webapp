@@ -32,11 +32,17 @@ import {
   Home,
   Star,
   Smile,
+  Heart,
+  Repeat,
+  MessageCircle,
 } from "lucide-react"
 
 export type Icon = LucideIcon
 
 export const Icons = {
+  recast: Repeat,
+  reply: MessageCircle,
+  heart: Heart,
   star: Star,
   coins: Coins,
   share: Share,
