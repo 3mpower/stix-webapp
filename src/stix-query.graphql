@@ -1,4 +1,4 @@
-query UsrOwnedCollections($userAddr: ID!,$userAddrToken: String!) {
+query UsrOwnedCollections($userAddr: ID!, $userAddrToken: String!) {
   user(id: $userAddr) {
     ownedCollections {
       id
@@ -28,5 +28,20 @@ query DnCollections {
     name
     symbol
     baseURI
+  }
+}
+
+
+query DnCollection($collectionId: ID!){
+  dncollection(id: $collectionId) {
+    id
+    name
+    symbol
+    maxSupply
+    baseURI
+    mintPrice
+    tokens(first: 20) {
+      id
+    }
   }
 }

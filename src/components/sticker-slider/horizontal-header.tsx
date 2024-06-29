@@ -104,12 +104,10 @@ const HorizontalSlider = ({
                     : ""
                 } overflow-y-hidden rounded-md p-2`}
               >
-                <Image
+                <img
                   src={`/images/sticker/${artwork.id}.png`}
                   alt={`Photo by ${artwork.name}`}
-                  className="h-fit w-fit object-cover"
-                  width={40}
-                  height={40}
+                  className="h-14 w-14 object-cover"
                 />
                 <figcaption className="text-center text-xs">
                   {artwork.name}
