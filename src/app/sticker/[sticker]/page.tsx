@@ -1,3 +1,4 @@
+"use client"
 import { Icons } from "@/components/icons"
 import TopNav from "@/components/top-nav"
 import { Badge } from "@/components/ui/badge"
@@ -5,29 +6,57 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 import Link from "next/link"
+import { DnCollectionDocument, DnCollectionQuery, execute } from ".graphclient"
+import { useParams } from "next/navigation"
 
-export default async function Page() {
-  const sticker = "item-1"
+import React, { useEffect, useState } from "react"
+import { ExecutionResult } from "graphql"
+import { formatEther } from "viem"
+
+export default function Page() {
+  // const sticker = "item-1"
+  const { sticker } = useParams<{ sticker: string }>()
+  const [stickerCollection, setStickerCollection] =
+    useState<ExecutionResult<DnCollectionQuery>>()
+  useEffect(() => {
+    // console.log(farcasterAccOwner)
+    // console.log({ sticker })
+
+    execute(DnCollectionDocument, {
+      collectionId: sticker,
+    }).then((result) => {
+      setStickerCollection(result)
+      // const { data } = result
+      // setSelectedCollection(data?.user?.ownedCollections[0])
+    })
+  }, [])
   return (
     <div className="flex min-h-screen flex-col bg-muted">
       <TopNav />
       <div className="flex flex-col items-center justify-center gap-6 text-center">
         <div className="flex flex-col items-center gap-3">
-          <Image
-            src="/images/sticker/mock.png"
+          <img
+            src={`/images/sticker/${sticker}.png`}
             height={132}
             width={128}
             alt="Item 1"
             className="mx-auto rounded-xl"
           />
           <Badge variant="outline" className="text-muted-foreground">
-            USGMEN
+            {formatEther(
+              stickerCollection?.data?.dncollection?.maxSupply?.toString() ?? 0
+            )}{" "}
+            Stickers
           </Badge>
-          <div className="text-xl font-bold">Training frog move Sticker</div>
+          <div className="text-xl font-bold">Basemon Sticker</div>
           <div className="flex items-center gap-3">
             <div className="flex text-xs font-semibold">
               <Icons.coins className="mr-1.5 h-3 w-3" />
-              100 ($1)
+              {formatEther(
+                stickerCollection?.data?.dncollection?.mintPrice?.toString() ??
+                  0
+              )}{" "}
+              eth
             </div>
             <RarityBadge rarity="common" />
             <RarityBadge rarity="rare" />
@@ -51,7 +80,7 @@ export default async function Page() {
           Stickers included in the set
         </div>
         <div className="mt-2 grid grid-cols-4 gap-3">
-          {Array.from({ length: 8 }).map((_, index) => (
+          {/* {Array.from({ length: 8 }).map((_, index) => (
             <div key={index}>
               <Image
                 src="/images/sticker/mock.png"
@@ -61,7 +90,21 @@ export default async function Page() {
                 className="mx-auto"
               />
             </div>
-          ))}
+          ))} */}
+
+          {stickerCollection?.data?.dncollection?.tokens.map(
+            (sticker, index) => (
+              <div key={index}>
+                <img
+                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${sticker.id}.png`}
+                  height={96}
+                  width={96}
+                  alt={sticker.id.toString()}
+                  className="mx-auto "
+                />
+              </div>
+            )
+          )}
         </div>
       </div>
     </div>
