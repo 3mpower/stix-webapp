@@ -1,6 +1,6 @@
 "use client"
 
-import PrivyProviders from "./privy-providers"
+import PrivyProvider from "./privy-provider"
 
 const buildProvidersTree = (componentsWithProps: any[]) => {
   const initialComponent = ({ children }: { children: React.ReactNode }) => (
@@ -26,7 +26,7 @@ const buildProvidersTree = (componentsWithProps: any[]) => {
   )
 }
 
-const ProvidersTree = buildProvidersTree([[PrivyProviders]])
+const ProvidersTree = buildProvidersTree([[PrivyProvider]])
 
 export const Provider = ({ children }: { children: React.ReactNode }) => {
   return <ProvidersTree>{children}</ProvidersTree>
