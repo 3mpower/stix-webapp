@@ -62,7 +62,7 @@ const FeedIndv = ({
                 {conversation.cast.replies.count} Replies
               </p>
             </div>
-            <StickerSlider />
+            {/* <StickerSlider /> */}
           </div>
         </div>
       </div>

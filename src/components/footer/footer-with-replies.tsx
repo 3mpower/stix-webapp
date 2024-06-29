@@ -127,7 +127,7 @@ const CommentFooter = ({
     <div className="fixed bottom-0 left-0 flex w-screen flex-col border border-primary  bg-popover-secondary">
       <div className="flex w-full items-center justify-between p-2">
         {!farcasterAccount ||
-        (farcasterAccount as FarcasterWithMetadata).signerPublicKey === null ? (
+        (farcasterAccount as FarcasterWithMetadata).signerPublicKey === undefined ? (
           <Button
             variant="default"
             className="w-full bg-neutral-200 text-slate-900 opacity-100"
