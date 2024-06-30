@@ -37,7 +37,7 @@ const Stickers = ({
               key={index}
               className="flex flex-col items-center justify-center gap-2 rounded text-center"
               onClick={() => {
-                handleStixReply(`/images/mock/${item.id % 8}.png`)
+                handleStixReply(`https://stix-chat.vercel.app/images/mock/${item.id % 8}.png`)
               }}
             >
               <img
