@@ -37,13 +37,11 @@ const Stickers = ({
               key={index}
               className="flex flex-col items-center justify-center gap-2 rounded text-center"
               onClick={() => {
-                handleStixReply(
-                  `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${item.id}.png`
-                )
+                handleStixReply(`/images/mock/${item.id % 8}.png`)
               }}
             >
               <img
-                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${item.id}.png`}
+                src={`/images/mock/${item.id % 8}.png`}
                 height={300}
                 width={200}
                 alt={item.id.toString()}
