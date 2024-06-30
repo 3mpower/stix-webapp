@@ -54,7 +54,7 @@ const Leaderboard = () => {
               >
                 <p className="text-sm font-bold text-gray-400">{user.rank}</p>
                 <div className="flex items-center gap-2">
-                  <div className="size-10 flex items-center justify-center rounded-md border border-gray-300 bg-muted-primary">
+                  <div className="flex h-12 w-10 items-center justify-center rounded-md border border-gray-300 bg-muted-primary">
                     <Icons.user className="size-4 text-muted-foreground" />
                   </div>
                   <p className="text-sm font-bold">{user.name}</p>

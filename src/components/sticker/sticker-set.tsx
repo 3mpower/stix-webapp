@@ -54,7 +54,7 @@ const StickersSet = () => {
           <div className="text-xl font-bold">Basemon Sticker</div>
           <div className="flex items-center gap-3">
             <div className="flex items-center text-xs font-semibold">
-              <Icons.coins className="size-3 mr-1.5" />
+              <Icons.coins className="mr-1.5 w-3" />
               {formatEther(
                 stickerCollection?.data?.dncollection?.mintPrice?.toString() ??
                   0
