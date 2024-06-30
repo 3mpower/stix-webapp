@@ -4,6 +4,7 @@ import Link from "next/link"
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import moment from "moment"
 import { Icons } from "../icons"
+import { Skeleton } from "../ui/skeleton"
 interface CastProps {
   text: string
   timestamp: string
@@ -36,7 +37,8 @@ export function Cast({ text, timestamp, author, reactions, hash }: CastProps) {
               alt={`${author.username}'s profile`}
             />
             <AvatarFallback className="uppercase">
-              {author.displayName.substring(0, 2)}
+              {/* {author.displayName.substring(0, 2)} */}
+              <Skeleton className="w-full h-full" />
             </AvatarFallback>
           </Avatar>
           <div className="flex w-full flex-col px-2">

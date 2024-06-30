@@ -12,6 +12,7 @@ import {
   EmbedUrl,
 } from "@neynar/nodejs-sdk/build/neynar-api/v2"
 import CommentFooter from "../footer/footer-with-replies"
+import { Skeleton } from "../ui/skeleton"
 
 // type CommentProps = {
 //   userTag: string
@@ -70,7 +71,9 @@ const Replies = ({
                       src={reply.author.pfp_url}
                       alt={reply.author.username}
                     />
-                    <AvatarFallback>CN</AvatarFallback>
+                    <AvatarFallback>
+                      <Skeleton className="w-full h-full" />
+                    </AvatarFallback>
                   </Avatar>
                   <div className="flex w-full flex-col px-2 text-sm">
                     <div className="flex items-center">

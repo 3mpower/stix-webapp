@@ -9,6 +9,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar"
 import moment from "moment"
 import { ConversationConversation } from "@neynar/nodejs-sdk/build/neynar-api/v2"
 import { Icons } from "../icons"
+import { Skeleton } from "../ui/skeleton"
 
 const FeedIndv = ({
   conversation,
@@ -35,7 +36,8 @@ const FeedIndv = ({
                 alt={`${conversation.cast.author.username}'s profile`}
               />
               <AvatarFallback>
-                {conversation.cast.author.display_name}
+                {/* {conversation.cast.author.display_name} */}
+                <Skeleton className="w-full h-full" />
               </AvatarFallback>
             </Avatar>
             <div className="flex w-full flex-col px-2">

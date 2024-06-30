@@ -5,6 +5,7 @@ import {
   useWallets,
   getEmbeddedConnectedWallet,
 } from "@privy-io/react-auth"
+import { Skeleton } from "./ui/skeleton"
 
 const UserAvatar = () => {
   const { logout, user } = usePrivy()
@@ -20,7 +21,8 @@ const UserAvatar = () => {
       <Avatar className="h-7 w-7 border-2 border-white">
         <AvatarImage src={user?.farcaster?.pfp ?? undefined} />
         <AvatarFallback>
-          {user?.farcaster?.username?.substring(0, 1)}
+          {/* {user?.farcaster?.username?.substring(0, 1)} */}
+          <Skeleton className="w-full h-full" />
         </AvatarFallback>
       </Avatar>
     </div>
