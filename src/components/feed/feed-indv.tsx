@@ -37,7 +37,7 @@ const FeedIndv = ({
               />
               <AvatarFallback>
                 {/* {conversation.cast.author.display_name} */}
-                <Skeleton className="w-full h-full" />
+                <Skeleton className="size-full" />
               </AvatarFallback>
             </Avatar>
             <div className="flex w-full flex-col px-2">

@@ -3,15 +3,15 @@
 import React, { useEffect, useState } from "react"
 import { Separator } from "./ui/separator"
 import { Icons } from "./icons"
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "./ui/skeleton"
 
 const Leaderboard = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+      setLoading(false)
+    }, 2000)
   })
 
   const users = [
@@ -36,26 +36,26 @@ const Leaderboard = () => {
       <div className="flex grow flex-col overflow-y-scroll px-4">
         {loading ? (
           <>
-          {[...Array(4)].map((_, index) => (
-            <div
-            key={index}
-            className={`flex h-[60px] items-center justify-between mb-5 dark:border-t dark:border-primary`}
-          >
-            <Skeleton className="h-full w-full bg-gray-300" />
-          </div>
-          ))}
+            {[...Array(4)].map((_, index) => (
+              <div
+                key={index}
+                className={`mb-5 flex h-[60px] items-center justify-between dark:border-t dark:border-primary`}
+              >
+                <Skeleton className="size-full bg-gray-300" />
+              </div>
+            ))}
           </>
         ) : (
           <>
-              {users.map((user, index) => (
+            {users.map((user, index) => (
               <div
                 key={index}
                 className={`flex h-[60px] items-center justify-between px-7 dark:border-t dark:border-primary`}
               >
                 <p className="text-sm font-bold text-gray-400">{user.rank}</p>
                 <div className="flex items-center gap-2">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-md border border-gray-300 bg-muted-primary">
-                    <Icons.user className="h-4 w-4 text-muted-foreground" />
+                  <div className="size-10 flex items-center justify-center rounded-md border border-gray-300 bg-muted-primary">
+                    <Icons.user className="size-4 text-muted-foreground" />
                   </div>
                   <p className="text-sm font-bold">{user.name}</p>
                 </div>

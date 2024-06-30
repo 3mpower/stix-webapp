@@ -18,11 +18,11 @@ const UserAvatar = () => {
 
   return (
     <div>
-      <Avatar className="h-7 w-7 border-2 border-white">
+      <Avatar className="size-7 border-2 border-white">
         <AvatarImage src={user?.farcaster?.pfp ?? undefined} />
         <AvatarFallback>
           {/* {user?.farcaster?.username?.substring(0, 1)} */}
-          <Skeleton className="w-full h-full" />
+          <Skeleton className="size-full" />
         </AvatarFallback>
       </Avatar>
     </div>

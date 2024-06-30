@@ -38,7 +38,7 @@ export function Cast({ text, timestamp, author, reactions, hash }: CastProps) {
             />
             <AvatarFallback className="uppercase">
               {/* {author.displayName.substring(0, 2)} */}
-              <Skeleton className="w-full h-full" />
+              <Skeleton className="size-full" />
             </AvatarFallback>
           </Avatar>
           <div className="flex w-full flex-col px-2">
