@@ -188,19 +188,19 @@ const CommentFooter = ({
           </div>
         )}
       </div>
-      <div className="flex min-h-[3rem] w-full items-center justify-between rounded-t-3xl border  border-primary bg-popover-secondary px-10">
+      <div className="flex w-full items-center justify-between rounded-t-3xl border border-primary bg-popover-secondary px-10 py-2">
         <Link
           className="flex flex-col items-center justify-center text-primary"
           href="/"
         >
-          <Icons.home className="h-6 w-6 fill-muted dark:fill-none" />
+          <Icons.home className="size-6 fill-muted dark:fill-none" />
           <div className="text-[9px] text-muted">Home</div>
         </Link>
         <Link
           className="flex flex-col items-center justify-center text-primary"
           href="/store"
         >
-          <Icons.shop className="h-6 w-6 fill-muted dark:fill-none" />
+          <Icons.shop className="size-6 fill-muted dark:fill-none" />
           <div className="text-[9px] text-muted">Store</div>
         </Link>
         {/* <div className="flex flex-col items-center justify-center text-primary">
@@ -211,7 +211,7 @@ const CommentFooter = ({
           <SheetTrigger>
             <div className="flex flex-col items-center justify-center gap-1 text-primary">
               <UserAvatar />
-              <div className="text-pria text-[9px] text-muted">Wallet</div>
+              {/* <div className="text-pria text-[9px] text-muted">Wallet</div> */}
             </div>
           </SheetTrigger>
           <SheetContent className="bg-[#818CF8] text-white" side="bottom">

@@ -18,7 +18,7 @@ const UserAvatar = () => {
 
   return (
     <div>
-      <Avatar className="size-7 border-2 border-white">
+      <Avatar className="border-2 border-white">
         <AvatarImage src={user?.farcaster?.pfp ?? undefined} />
         <AvatarFallback>
           {/* {user?.farcaster?.username?.substring(0, 1)} */}
