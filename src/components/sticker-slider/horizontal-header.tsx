@@ -110,7 +110,7 @@ const HorizontalSlider = ({
                   className="h-14 w-14 object-cover"
                 />
                 <figcaption className="text-center text-xs">
-                  {artwork.name}
+                  {"Beanbase"}
                 </figcaption>
               </div>
             </figure>

@@ -51,7 +51,7 @@ const StickersSet = () => {
             )}{" "}
             Stickers
           </Badge>
-          <div className="text-xl font-bold">Basemon Sticker</div>
+          <div className="text-xl font-bold">Beanbase Sticker</div>
           <div className="flex items-center gap-3">
             <div className="flex items-center text-xs font-semibold">
               <Icons.coins className="mr-1.5 w-3" />
@@ -114,7 +114,7 @@ const StickersSet = () => {
                 (sticker, index) => (
                   <div key={index}>
                     <img
-                      src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${sticker.id}.png`}
+                      src={`/images/mock/${parseInt(sticker.id) % 8}.png`}
                       height={96}
                       width={96}
                       alt={sticker.id.toString()}

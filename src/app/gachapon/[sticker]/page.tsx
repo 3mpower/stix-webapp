@@ -22,7 +22,7 @@ const Page = () => {
             <Inventory />
           </div>
           <AspectRatio ratio={480 / 160}>
-            <Image src="/images/banner.jpg" fill alt="banner" />
+            <Image src="/images/banner.png" fill alt="banner" />
           </AspectRatio>
           <div className="px-4">
             <PurchaseWithQuantity />

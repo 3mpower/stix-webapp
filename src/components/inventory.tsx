@@ -34,7 +34,7 @@ const Inventory = () => {
       }).then((result) => {
         // console.log({ result })
         setItems(result)
-        setLoading(false);
+        setLoading(false)
         // const { data } = result
         // setSelectedCollection(data?.user?.ownedCollections[0])
       })
@@ -58,39 +58,37 @@ const Inventory = () => {
       <p className="mb-2 text-xs font-bold">My Inventory</p>
       <div className="flex gap-x-[12px]">
         {loading ? (
-            <>
-              {[...Array(8)].map((_, i) => (
-                <div
+          <>
+            {[...Array(8)].map((_, i) => (
+              <div
                 key={i}
-                className={`relative rounded-lg border-2 mb-3 text-center`}
+                className={`relative mb-3 rounded-lg border-2 text-center`}
                 // style={{ borderColor: getColor(item.rarity) }}
               >
                 <Skeleton className="h-[50px] w-[50px]" />
               </div>
-              ))
-            }
-            </>
-          ) : (
-            <>
+            ))}
+          </>
+        ) : (
+          <>
             {items &&
-          items.data?.user?.ownedTokens.map((item, index) => (
-            <div
-              key={index}
-              className={`relative rounded-lg border-2 text-center`}
-              // style={{ borderColor: getColor(item.rarity) }}
-            >
-              <img
-                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${item.id}.png`}
-                alt={item.id}
-                width={50}
-                height={50}
-                className="rounded-lg"
-              />
-            </div>
-          ))}
-            </>
-          )
-        }
+              items.data?.user?.ownedTokens.map((item, index) => (
+                <div
+                  key={index}
+                  className={`relative rounded-lg border-2 text-center`}
+                  // style={{ borderColor: getColor(item.rarity) }}
+                >
+                  <img
+                    src={`/images/mock/${parseInt(item.id) % 8}.png`}
+                    alt={item.id}
+                    width={50}
+                    height={50}
+                    className="rounded-lg"
+                  />
+                </div>
+              ))}
+          </>
+        )}
       </div>
     </div>
   )
