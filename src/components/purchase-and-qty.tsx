@@ -30,10 +30,6 @@ const PurchaseWithQuantity = () => {
   const { wallets, ready } = useWallets()
   // const { sendTransaction, ready } = usePrivy()
 
-  if (!ready) {
-    return <div>Loading...</div>
-  }
-
   const embedWallet = getEmbeddedConnectedWallet(wallets)
 
   /// @dev The contract address of the NFT
@@ -161,7 +157,7 @@ const PurchaseWithQuantity = () => {
         onClick={handlePurchase}
       >
         <div>Purchase</div>
-        <div>{`${formatEther(parseEther(price) * BigInt(quantity))}eth`}</div>
+        {!ready ? null : <div>{`${formatEther(parseEther(price) * BigInt(quantity))}eth`}</div>}
       </Button>
     </div>
   )

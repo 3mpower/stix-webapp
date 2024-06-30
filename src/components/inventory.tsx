@@ -11,11 +11,13 @@ import {
 } from ".graphclient"
 import { useParams } from "next/navigation"
 import { useWallets, getEmbeddedConnectedWallet } from "@privy-io/react-auth"
+import { Skeleton } from "./ui/skeleton"
 
 const Inventory = () => {
   const { sticker } = useParams<{ sticker: string }>()
 
   const { ready, wallets } = useWallets()
+  const [loading, setLoading] = useState(true)
 
   const embededWallet = getEmbeddedConnectedWallet(wallets)
 
@@ -30,8 +32,9 @@ const Inventory = () => {
         userAddr: embededWallet?.address,
         collectionAddr: sticker,
       }).then((result) => {
-        console.log({ result })
+        // console.log({ result })
         setItems(result)
+        setLoading(false);
         // const { data } = result
         // setSelectedCollection(data?.user?.ownedCollections[0])
       })
@@ -54,7 +57,22 @@ const Inventory = () => {
     <div>
       <p className="mb-2 text-xs font-bold">My Inventory</p>
       <div className="flex gap-x-[12px]">
-        {items &&
+        {loading ? (
+            <>
+              {[...Array(8)].map((_, i) => (
+                <div
+                key={i}
+                className={`relative rounded-lg border-2 mb-3 text-center`}
+                // style={{ borderColor: getColor(item.rarity) }}
+              >
+                <Skeleton className="h-[50px] w-[50px]" />
+              </div>
+              ))
+            }
+            </>
+          ) : (
+            <>
+            {items &&
           items.data?.user?.ownedTokens.map((item, index) => (
             <div
               key={index}
@@ -70,6 +88,9 @@ const Inventory = () => {
               />
             </div>
           ))}
+            </>
+          )
+        }
       </div>
     </div>
   )

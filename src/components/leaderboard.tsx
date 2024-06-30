@@ -1,8 +1,19 @@
-import React from "react"
+"use client"
+
+import React, { useEffect, useState } from "react"
 import { Separator } from "./ui/separator"
 import { Icons } from "./icons"
+import { Skeleton } from "./ui/skeleton";
 
 const Leaderboard = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  })
+
   const users = [
     { rank: 1, name: "User 1", stickers: 69 },
     { rank: 2, name: "User 2", stickers: 50 },
@@ -23,23 +34,38 @@ const Leaderboard = () => {
         </div>
       </div>
       <div className="flex grow flex-col overflow-y-scroll px-4">
-        {users.map((user, index) => (
-          <div
+        {loading ? (
+          <>
+          {[...Array(4)].map((_, index) => (
+            <div
             key={index}
-            className={`flex h-[60px] items-center justify-between px-7 dark:border-t dark:border-primary`}
+            className={`flex h-[60px] items-center justify-between mb-5 dark:border-t dark:border-primary`}
           >
-            <p className="text-sm font-bold text-gray-400">{user.rank}</p>
-            <div className="flex items-center gap-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-md border border-gray-300 bg-muted-primary">
-                <Icons.user className="h-4 w-4 text-muted-foreground" />
-              </div>
-              <p className="text-sm font-bold">{user.name}</p>
-            </div>
-            {user.stickers && (
-              <p className="text-sm font-bold">{user.stickers}</p>
-            )}
+            <Skeleton className="h-full w-full bg-gray-300" />
           </div>
-        ))}
+          ))}
+          </>
+        ) : (
+          <>
+              {users.map((user, index) => (
+              <div
+                key={index}
+                className={`flex h-[60px] items-center justify-between px-7 dark:border-t dark:border-primary`}
+              >
+                <p className="text-sm font-bold text-gray-400">{user.rank}</p>
+                <div className="flex items-center gap-2">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-md border border-gray-300 bg-muted-primary">
+                    <Icons.user className="h-4 w-4 text-muted-foreground" />
+                  </div>
+                  <p className="text-sm font-bold">{user.name}</p>
+                </div>
+                {user.stickers && (
+                  <p className="text-sm font-bold">{user.stickers}</p>
+                )}
+              </div>
+            ))}
+          </>
+        )}
       </div>
     </div>
   )

@@ -1,5 +1,3 @@
-"use client"
-
 import Inventory from "@/components/inventory"
 import Leaderboard from "@/components/leaderboard"
 import PurchaseWithQuantity from "@/components/purchase-and-qty"

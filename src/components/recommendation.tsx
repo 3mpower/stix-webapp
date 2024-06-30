@@ -8,6 +8,7 @@ import {
   DnCollectionsQuery,
   execute,
 } from ".graphclient"
+import { Skeleton } from "./ui/skeleton"
 
 // const items = [
 //   { name: "Item 1", imageUrl: "/images/sticker/mock.png" },
@@ -25,12 +26,12 @@ const Recommendation = () => {
 
   const [items, setItems] = useState<ExecutionResult<DnCollectionsQuery>>()
 
+  const [loading, setLoading] = useState(true) // Add this line
+
   useEffect(() => {
-    // console.log(farcasterAccOwner)
     execute(DnCollectionsDocument, {}).then((result) => {
       setItems(result)
-      // const { data } = result
-      // setSelectedCollection(data?.user?.ownedCollections[0])
+      setLoading(false)
     })
   }, [])
 
@@ -42,22 +43,34 @@ const Recommendation = () => {
     <div className="px-5">
       <h1 className="my-2 font-bold">Recommended Stickers</h1>
       <div className="grid grid-cols-4 gap-4">
-        {items?.data?.dncollections.map((item, index) => (
-          <div
-            key={index}
-            className="flex flex-col items-center justify-center text-center"
-            onClick={() => handleClick(item.id)}
-          >
-            <img
-              src={`/images/sticker/${item.id}.png`}
-              height={300}
-              width={200}
-              alt={item.name}
-              className="mx-auto rounded-lg"
-            />
-            <p className="mt-2 text-sm">{item.name}</p>
-          </div>
-        ))}
+        {loading ? (
+          <>
+              {[...Array(16)].map((_, i) => (
+                <div key={i} className="w-full flex rounded-lg">
+                  <Skeleton className="h-[120px] w-full" />
+                </div>
+              ))}
+          </>
+        ) : (
+          <>
+            {items?.data?.dncollections.map((item, index) => (
+              <div
+                key={index}
+                className="flex flex-col items-center justify-center text-center"
+                onClick={() => handleClick(item.id)}
+              >
+                <img
+                  src={`/images/sticker/${item.id}.png`}
+                  height={300}
+                  width={200}
+                  alt={item.name}
+                  className="mx-auto rounded-lg"
+                />
+                <p className="mt-2 text-sm">{item.name}</p>
+              </div>
+            ))}
+          </>
+        )}
       </div>
     </div>
   )
