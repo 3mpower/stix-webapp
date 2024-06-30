@@ -37,13 +37,8 @@ export const metadata = {
     "Server Components",
     "Radix UI",
   ],
-  authors: [
-    {
-      name: "ayvee",
-      url: "https://ayvee.dev",
-    },
-  ],
-  creator: "ayvee",
+  authors: [],
+  creator: "stix",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "white" },
     { media: "(prefers-color-scheme: dark)", color: "black" },
@@ -61,7 +56,7 @@ export const metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     images: [`${siteConfig.url}/og.jpg`],
-    creator: "@ayvee",
+    creator: "@stix",
   },
   icons: {
     icon: "/favicon.ico",
