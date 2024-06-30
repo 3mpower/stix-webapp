@@ -8,12 +8,8 @@ import { motion } from "framer-motion"
 export default function Page() {
   const [show, setShow] = useState(false)
   const router = useRouter()
-  const handleRevealAll = () => {
-    router.push("/gachapon/results")
-  }
-
-  const handleRevealNext = () => {
-    router.refresh()
+  const handleBack = () => {
+    router.back()
   }
   return (
     <div className="relative h-screen">
@@ -24,11 +20,8 @@ export default function Page() {
           animate={{ y: 0 }}
           transition={{ delay: 5, bounce: 0 }}
         >
-          <Button className="w-full" onClick={handleRevealAll}>
-            Reveal all
-          </Button>
-          <Button className="w-full" onClick={handleRevealNext}>
-            Reveal next
+          <Button className="w-full" onClick={handleBack}>
+            Back to stickers
           </Button>
         </motion.div>
       )}

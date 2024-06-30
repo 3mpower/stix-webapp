@@ -19,13 +19,13 @@ import {
   useWallets,
   getEmbeddedConnectedWallet,
 } from "@privy-io/react-auth"
-import { read } from "fs"
-import { useSimulateContract } from "wagmi"
+
 import { publicClient } from "./providers/privy-provider"
+import { useRouter } from "next/navigation"
 
 const PurchaseWithQuantity = () => {
   // const { chain } = useAccount()
-  // const router = useRouter()
+  const router = useRouter()
   const [quantity, setQuantity] = useState(1)
   const { wallets, ready } = useWallets()
   // const { sendTransaction, ready } = usePrivy()
@@ -109,24 +109,7 @@ const PurchaseWithQuantity = () => {
     }
 
     const res = await walletClient.writeContract(request)
-    console.log(res)
-
-    // const {
-    //   data: simulatedContract,
-    //   isPending: simulatedPending,
-    //   isError: simulatedError,
-    // } = useSimulateContract({
-    //   address: contractAddress,
-    //   abi: DN404ABI,
-    //   functionName: "mint",
-    //   args: ["0xc6F560083B9168c071f98f5A725e687d61bbe608", parseEther("1")],
-    //   value: parseEther("0.008"),
-    // })
-
-    // if (simulatedContract) {
-    //   // await writeContract?.(simulatedContract?.request)
-    //   // router.push("/gachapon/reveal")
-    // }
+    router.push("/gachapon/reveal")
   }
 
   return (
@@ -140,7 +123,7 @@ const PurchaseWithQuantity = () => {
         >
           -
         </Button>
-        <div className="w-[2.5rem] text-center font-bold text-foreground">
+        <div className="w-10 text-center font-bold text-foreground">
           {quantity}
         </div>
         <Button
@@ -157,7 +140,9 @@ const PurchaseWithQuantity = () => {
         onClick={handlePurchase}
       >
         <div>Purchase</div>
-        {!ready ? null : <div>{`${formatEther(parseEther(price) * BigInt(quantity))}eth`}</div>}
+        {!ready ? null : (
+          <div>{`${formatEther(parseEther(price) * BigInt(quantity))}eth`}</div>
+        )}
       </Button>
     </div>
   )

@@ -7,16 +7,20 @@ import { Icons } from "./icons"
 const TopNav = () => {
   const router = useRouter()
   return (
-    <div className="flex min-h-[3rem] items-center justify-between p-2 text-muted-foreground">
+    <div className="min-h-12 flex items-center justify-between p-2 text-muted-foreground">
       <Button onClick={() => router.back()} variant="ghost" size="icon">
-        <Icons.chevronLeft className="h-6 w-6" />
+        <Icons.chevronLeft className="size-6" />
       </Button>
       <div className="flex">
         <Button variant="ghost" size="icon">
-          <Icons.share className="mx-2 h-5 w-5" />
+          <Icons.share className="size-5 mx-2" />
         </Button>
-        <Button onClick={() => router.push("/")} variant="ghost" size="icon">
-          <Icons.close className="h-6 w-6" />
+        <Button
+          onClick={() => router.push("/store")}
+          variant="ghost"
+          size="icon"
+        >
+          <Icons.close className="size-6" />
         </Button>
       </div>
     </div>

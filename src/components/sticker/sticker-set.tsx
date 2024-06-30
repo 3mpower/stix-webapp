@@ -13,6 +13,7 @@ import React, { useEffect, useState } from "react"
 import { ExecutionResult } from "graphql"
 import { formatEther } from "viem"
 import { Skeleton } from "../ui/skeleton"
+import { AspectRatio } from "../ui/aspect-ratio"
 
 const StickersSet = () => {
   const [loading, setLoading] = useState(true)
@@ -52,8 +53,8 @@ const StickersSet = () => {
           </Badge>
           <div className="text-xl font-bold">Basemon Sticker</div>
           <div className="flex items-center gap-3">
-            <div className="flex text-xs font-semibold">
-              <Icons.coins className="mr-1.5 h-3 w-3" />
+            <div className="flex items-center text-xs font-semibold">
+              <Icons.coins className="size-3 mr-1.5" />
               {formatEther(
                 stickerCollection?.data?.dncollection?.mintPrice?.toString() ??
                   0
@@ -97,9 +98,13 @@ const StickersSet = () => {
             <>
               <>
                 {[...Array(16)].map((_, i) => (
-                  <div key={i} className="flex w-full rounded-lg">
-                    <Skeleton className="h-[120px] w-full" />
-                  </div>
+                  <AspectRatio
+                    ratio={1}
+                    key={i}
+                    className="flex w-full rounded-lg"
+                  >
+                    <Skeleton className="w-full" />
+                  </AspectRatio>
                 ))}
               </>
             </>
@@ -139,7 +144,7 @@ const RarityBadge = ({
   return (
     <Badge
       className={cn(
-        "border border-black px-1 py-[1px] text-[10px] font-bold uppercase shadow-[1px_2px_0px_0px_#000]",
+        "border border-black px-1 py-px text-[10px] font-bold uppercase shadow-[1px_2px_0px_0px_#000]",
         color[rarity]
       )}
     >

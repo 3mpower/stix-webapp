@@ -1,5 +1,5 @@
 "use client"
-import Image from "next/image"
+
 import { useRouter } from "next/navigation"
 import React, { useEffect, useState } from "react"
 import { ExecutionResult } from "graphql"
@@ -9,17 +9,7 @@ import {
   execute,
 } from ".graphclient"
 import { Skeleton } from "./ui/skeleton"
-
-// const items = [
-//   { name: "Item 1", imageUrl: "/images/sticker/mock.png" },
-//   { name: "Item 2", imageUrl: "/images/sticker/mock.png" },
-//   { name: "Item 3", imageUrl: "/images/sticker/mock.png" },
-//   { name: "Item 4", imageUrl: "/images/sticker/mock.png" },
-//   { name: "Item 1", imageUrl: "/images/sticker/mock.png" },
-//   { name: "Item 2", imageUrl: "/images/sticker/mock.png" },
-//   { name: "Item 3", imageUrl: "/images/sticker/mock.png" },
-//   { name: "Item 4", imageUrl: "/images/sticker/mock.png" },
-// ]
+import { AspectRatio } from "./ui/aspect-ratio"
 
 const Recommendation = () => {
   const router = useRouter()
@@ -45,11 +35,11 @@ const Recommendation = () => {
       <div className="grid grid-cols-4 gap-4">
         {loading ? (
           <>
-              {[...Array(16)].map((_, i) => (
-                <div key={i} className="w-full flex rounded-lg">
-                  <Skeleton className="h-[120px] w-full" />
-                </div>
-              ))}
+            {[...Array(16)].map((_, i) => (
+              <AspectRatio ratio={1} key={i} className="flex w-full rounded-lg">
+                <Skeleton className="w-full" />
+              </AspectRatio>
+            ))}
           </>
         ) : (
           <>

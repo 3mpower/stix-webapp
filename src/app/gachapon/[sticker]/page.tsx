@@ -2,6 +2,8 @@ import Inventory from "@/components/inventory"
 import Leaderboard from "@/components/leaderboard"
 import PurchaseWithQuantity from "@/components/purchase-and-qty"
 import TopNav from "@/components/top-nav"
+import { AspectRatio } from "@/components/ui/aspect-ratio"
+import Image from "next/image"
 
 import React from "react"
 // const items = [
@@ -19,8 +21,9 @@ const Page = () => {
           <div className="px-4">
             <Inventory />
           </div>
-          {/* Banner */}
-          <div className="h-40 w-full bg-red-100"></div>
+          <AspectRatio ratio={480 / 160}>
+            <Image src="/images/banner.jpg" fill alt="banner" />
+          </AspectRatio>
           <div className="px-4">
             <PurchaseWithQuantity />
           </div>

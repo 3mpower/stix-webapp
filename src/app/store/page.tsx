@@ -9,10 +9,6 @@ const Feed = () => {
   return (
     <div className="relative min-h-screen pb-24 text-black">
       <Header />
-      {/* <Separator /> */}
-      {/* export function CastFeed({ feed }: CastFeedProps) { */}
-      {/* @ts-ignore */}
-      {/* <CastFeed feed={mockFeed} /> */}
       <NavigationTab />
     </div>
   )
