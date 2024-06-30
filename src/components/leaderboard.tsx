@@ -36,14 +36,14 @@ const Leaderboard = () => {
       <div className="flex grow flex-col overflow-y-scroll px-4">
         {loading ? (
           <>
-            {[...Array(4)].map((_, index) => (
-              <div
-                key={index}
-                className={`mb-5 flex h-[60px] items-center justify-between dark:border-t dark:border-primary`}
-              >
-                <Skeleton className="size-full bg-gray-300" />
-              </div>
-            ))}
+          {[...Array(4)].map((_, index) => (
+            <div
+            key={index}
+            className={`flex h-[60px] items-center justify-between px-7 dark:border-t dark:border-primary`}
+            >
+            <Skeleton className="h-full w-full bg-gray-300" />
+          </div>
+          ))}
           </>
         ) : (
           <>

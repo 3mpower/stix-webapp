@@ -72,7 +72,7 @@ const Replies = ({
                       alt={reply.author.username}
                     />
                     <AvatarFallback>
-                      <Skeleton className="size-full" />
+                      <Skeleton className="h-full w-full" />
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex w-full flex-col px-2 text-sm">

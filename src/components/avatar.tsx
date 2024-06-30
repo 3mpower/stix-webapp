@@ -22,7 +22,7 @@ const UserAvatar = () => {
         <AvatarImage src={user?.farcaster?.pfp ?? undefined} />
         <AvatarFallback>
           {/* {user?.farcaster?.username?.substring(0, 1)} */}
-          <Skeleton className="size-full" />
+          <Skeleton className="h-full w-full" />
         </AvatarFallback>
       </Avatar>
     </div>
