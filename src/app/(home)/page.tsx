@@ -11,7 +11,8 @@ import { FeedType, FilterType } from "@neynar/nodejs-sdk"
 
 export default async function HomePage() {
   const feed = await neynarClient.fetchFeed(FeedType.Filter, {
-    filterType: FilterType.GlobalTrending,
+    filterType: FilterType.Fids,
+    fids: [10041],
   })
   return (
     <div className="relative min-h-screen pb-24 text-black">
