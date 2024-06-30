@@ -39,8 +39,8 @@ const Leaderboard = () => {
           {[...Array(4)].map((_, index) => (
             <div
             key={index}
-            className={`flex h-[60px] items-center justify-between mb-5 dark:border-t dark:border-primary`}
-          >
+            className={`flex h-[60px] items-center justify-between px-7 dark:border-t dark:border-primary`}
+            >
             <Skeleton className="h-full w-full bg-gray-300" />
           </div>
           ))}
