@@ -14,14 +14,38 @@ import {
 } from "@/components/ui/sheet"
 import {
   getEmbeddedConnectedWallet,
+  useLogout,
   usePrivy,
   useWallets,
 } from "@privy-io/react-auth"
 import { Button } from "../ui/button"
+import { copyToClipboard } from "@/utils"
+import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 
 const Footer = () => {
-  const { authenticated, logout } = usePrivy()
+  const { authenticated } = usePrivy()
   const { ready, wallets } = useWallets()
+  const router = useRouter()
+
+  const { logout } = useLogout({
+    onSuccess: () => {
+      console.log("User logged out")
+      router.push("/store")
+    },
+  })
+
+  const handleCopy = async () => {
+    try {
+      await copyToClipboard(embedWallet?.address || "")
+      toast.success("Copied!", {
+        position: "bottom-right",
+        duration: 1000,
+      })
+    } catch (error) {
+      toast.error("Failed to copy text") // Show error toast
+    }
+  }
 
   const embedWallet = getEmbeddedConnectedWallet(wallets)
   if (!authenticated && !ready && !embedWallet) {
@@ -59,15 +83,15 @@ const Footer = () => {
         <SheetContent className="bg-[#818CF8] text-white" side="bottom">
           <SheetHeader>
             <SheetTitle className="text-white">Wallet</SheetTitle>
-            <SheetDescription className="text-white">
+            <SheetDescription
+              onClick={handleCopy}
+              className="break-words font-bold text-white hover:cursor-pointer"
+            >
               {`${embedWallet?.address}`}
             </SheetDescription>
             <div>
               <Button
-                onClick={() => {
-                  logout()
-                  window.location.reload()
-                }}
+                onClick={() => logout()}
                 variant="secondary"
                 className="mt-5 text-gray-200"
               >

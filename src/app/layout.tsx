@@ -4,7 +4,7 @@ import localFont from "next/font/local"
 import "@/styles/globals.css"
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/ui/sonner"
 import { Analytics } from "@/components/analytics"
 import { ThemeProvider } from "@/components/providers/theme-provider"
 import { Provider } from "@/components/providers"
@@ -74,7 +74,9 @@ export const metadata = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <head>
+        <link rel="preload" href="https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode" as="fetch" />
+      </head>
       <body
         className={cn(
           "relative overflow-x-hidden bg-background font-sans antialiased  dark:bg-accent dark:text-accent-foreground",
