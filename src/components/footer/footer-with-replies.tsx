@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Icons } from "../icons"
 import UserAvatar from "../avatar"
 import Link from "next/link"
@@ -27,6 +27,8 @@ import {
 } from "@/components/ui/sheet"
 import { copyToClipboard } from "@/utils"
 import { toast } from "sonner"
+import { useRouter } from 'next/navigation'
+import {useLogout} from '@privy-io/react-auth';
 
 const CommentFooter = ({
   hash,
@@ -46,8 +48,18 @@ const CommentFooter = ({
     requestFarcasterSignerFromWarpcast,
   } = useExperimentalFarcasterSigner()
 
-  const { logout, user, authenticated } = usePrivy()
+  const { user, authenticated } = usePrivy()
   const { ready, wallets } = useWallets()
+  const router = useRouter();
+
+  const {logout} = useLogout({
+    onSuccess: () => {
+      console.log('User logged out');
+      router.push('/store');
+    },
+  });
+
+  useEffect(() => {}, [logout])
 
   if (!user) {
     return null
@@ -236,10 +248,7 @@ const CommentFooter = ({
               </SheetDescription>
               <div>
                 <Button
-                  onClick={() => {
-                    logout()
-                    window.location.reload()
-                  }}
+                  onClick={() => logout()}
                   variant="secondary"
                   className="mt-5 text-gray-200"
                 >
