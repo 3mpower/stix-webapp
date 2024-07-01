@@ -26,10 +26,10 @@ export default function Page() {
         </motion.div>
       )}
       <div className="h-full">
-          {/* <Spline
+          <Spline
             onLoad={() => setShow(true)}
             scene="https://prod.spline.design/nQfb8wq75Ai5HqbF/scene.splinecode"
-          /> */}
+          />
       </div>
     </div>
   )

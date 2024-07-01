@@ -26,26 +26,26 @@ import { useRouter } from "next/navigation"
 const Footer = () => {
   const { authenticated } = usePrivy()
   const { ready, wallets } = useWallets()
-  const router = useRouter();
+  const router = useRouter()
 
-  const {logout} = useLogout({
+  const { logout } = useLogout({
     onSuccess: () => {
-      console.log('User logged out');
-      router.push('/store');
+      console.log("User logged out")
+      router.push("/store")
     },
-  });
+  })
 
   const handleCopy = async () => {
     try {
-      await copyToClipboard(embedWallet?.address || '')
-      toast.success('Copied!', {
-        position: 'bottom-right',
+      await copyToClipboard(embedWallet?.address || "")
+      toast.success("Copied!", {
+        position: "bottom-right",
         duration: 1000,
-      });
+      })
     } catch (error) {
-      toast.error('Failed to copy text'); // Show error toast
-  };
-};
+      toast.error("Failed to copy text") // Show error toast
+    }
+  }
 
   const embedWallet = getEmbeddedConnectedWallet(wallets)
   if (!authenticated && !ready && !embedWallet) {
@@ -83,7 +83,10 @@ const Footer = () => {
         <SheetContent className="bg-[#818CF8] text-white" side="bottom">
           <SheetHeader>
             <SheetTitle className="text-white">Wallet</SheetTitle>
-            <SheetDescription onClick={handleCopy} className="text-white break-words font-bold hover:cursor-pointer">
+            <SheetDescription
+              onClick={handleCopy}
+              className="break-words font-bold text-white hover:cursor-pointer"
+            >
               {`${embedWallet?.address}`}
             </SheetDescription>
             <div>
