@@ -25,6 +25,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { copyToClipboard } from "@/utils"
+import { toast } from "sonner"
 
 const CommentFooter = ({
   hash,
@@ -57,6 +59,18 @@ const CommentFooter = ({
     signFarcasterMessage,
     getFarcasterSignerPublicKey
   )
+
+  const handleCopy = async () => {
+    try {
+      await copyToClipboard(embedWallet?.address || '')
+      toast.success('Copied!', {
+        position: 'bottom-right',
+        duration: 1000,
+      });
+    } catch (error) {
+      toast.error('Failed to copy text'); // Show error toast
+  };
+};
 
   const embedWallet = getEmbeddedConnectedWallet(wallets)
   if (!authenticated && !ready && !embedWallet) {
@@ -217,7 +231,7 @@ const CommentFooter = ({
           <SheetContent className="bg-[#818CF8] text-white" side="bottom">
             <SheetHeader>
               <SheetTitle className="text-white">Wallet</SheetTitle>
-              <SheetDescription className="text-white">
+              <SheetDescription onClick={handleCopy} className="text-white break-words font-bold hover:cursor-pointer">
                 {`${embedWallet?.address}`}
               </SheetDescription>
               <div>
