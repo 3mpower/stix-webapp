@@ -74,7 +74,9 @@ export const metadata = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <head>
+        <link rel="preload" href="https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode" as="fetch" />
+      </head>
       <body
         className={cn(
           "relative overflow-x-hidden bg-background font-sans antialiased  dark:bg-accent dark:text-accent-foreground",
